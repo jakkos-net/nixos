@@ -14,6 +14,8 @@ config.window_padding = {
   bottom = 0,
 }
 
+config.default_prog = { 'nu' }
+
 config.keys = {
   { key = '1', mods = 'ALT', action = act.ActivatePaneByIndex(0) },
   { key = '2', mods = 'ALT', action = act.ActivatePaneByIndex(1) },

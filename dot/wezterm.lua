@@ -27,7 +27,6 @@ config.keys = {
   { key = 'i', mods = 'ALT|SHIFT', action = act.AdjustPaneSize { 'Up', 5 }},
   { key = 'j', mods = 'ALT|SHIFT', action = act.AdjustPaneSize { 'Left', 5 }},
   { key = 'l', mods = 'ALT|SHIFT', action = act.AdjustPaneSize { 'Right', 5 }},
-  { key = 'q', mods = 'ALT|SHIFT', action = act.CloseCurrentTab{confirm = false}},
   { key = 't', mods = 'ALT', action = act.SpawnTab 'CurrentPaneDomain'},
   { key = 'l', mods = 'ALT', action = act.EmitEvent 'trigger-hx-with-visible-text'},
 }

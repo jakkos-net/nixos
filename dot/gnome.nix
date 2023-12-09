@@ -40,10 +40,6 @@ in
         favorite-apps = [];
       };
 
-      "org/gnome/shell/app-switcher" = {
-        current-workspace-only = true;
-      };
-
       "org/gnome/shell/window-switcher" = {
         current-workspace-only = true;
       };

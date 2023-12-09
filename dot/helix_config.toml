@@ -1,0 +1,34 @@
+theme = "dracula"
+
+[editor]
+line-number = "relative"
+auto-save = true
+auto-format = true
+
+[editor.file-picker]
+hidden = false
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.whitespace]
+render = "none"
+
+[editor.soft-wrap]
+enable = true
+
+[keys.insert]
+up = "no_op"
+down = "no_op"
+left = "no_op"
+right = "no_op"
+
+[keys.normal]
+up = "no_op"
+down = "no_op"
+left = "no_op"
+right = "no_op"
+
+

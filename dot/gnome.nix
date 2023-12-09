@@ -1,6 +1,6 @@
 {lib, ... } : 
 let
-  workspaces = ["1" "2" "3" "4" "5" "6" "7" "8" "9" "0" "q" "w" "e" "r" "a" "s" "d" "f" "g" "z" "x" "c"];
+  workspaces = ["q" "w" "e" "r" "a" "s" "d" "f" "g" "z" "x" "c" "1" "2" "3" "4" "5" "6" "7" "8" "9" "0"];
 
   custom_keybinds = [
    # {name = "test_name1"; command = "do_thing"; binding = "<Super>k";}

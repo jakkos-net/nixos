@@ -1,9 +1,9 @@
 {lib, ... } : 
 let
-  workspaces = ["q" "w" "e" "r" "a" "s" "d" "f" "g" "z" "x" "c" "1" "2" "3" "4" "5" "6" "7" "8" "9" "0"];
+  workspaces = ["q" "w" "e" "r" "t" "a" "s" "d" "f" "g" "z" "x" "c" "1" "2" "3" "4" "5" "6" "7" "8" "9" "0"];
 
   custom_keybinds = [
-   # {name = "test_name1"; command = "do_thing"; binding = "<Super>k";}
+    {name = "spawn terminal"; command = "wezterm"; binding = "<Super>Return";}
   ];
 in
 { 
@@ -38,6 +38,8 @@ in
 
       "org/gnome/shell" = {
         favorite-apps = [];
+        disabled-extensions = [];
+        enabled-extensions = ["launch-new-instance@gnome-shell-extensions.gcampax.github.com"];
       };
 
       "org/gnome/shell/window-switcher" = {
@@ -52,6 +54,7 @@ in
       "org/gnome/desktop/input-sources" = {
         xkb-options = ["caps:escape_shifted_capslock"];
       };
+
   } 
   # everything below here is just code to set up the custom keybindings and workspaces
   // 

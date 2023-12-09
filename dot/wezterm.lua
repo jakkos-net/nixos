@@ -33,14 +33,6 @@ config.keys = {
   { key = 'l', mods = 'ALT', action = act.EmitEvent 'trigger-hx-with-visible-text'},
 }
 config.window_background_opacity = 0.9
--- for i = 1, 8 do
---   table.insert(config.keys, {
---     key = tostring(i),
---     mods = 'ALT|SHIFT',
---     action = act.ActivateTab(i - 1),
---   })
--- end
-
 config.hide_tab_bar_if_only_one_tab = true
 config.color_scheme = 'Dracula'
 

@@ -149,8 +149,9 @@
 
       programs.nushell = {
         enable = true;
-        configFile.source = ./dot/config.nu;
-        envFile.source = ./dot/env.nu;
+        configFile.text = builtins.readFile ./dot/config.nu;
+        envFile.text = builtins.readFile ./dot/env.nu;
+        extraConfig = builtins.readFile ./dot/cmds.nu;
       };
 
       programs.zoxide = {

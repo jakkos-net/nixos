@@ -5,7 +5,7 @@
     ./hardware-configuration.nix
   ];
 
-  # nix settings
+  # nix
   nixpkgs.config.allowUnfree = true;
   nix.settings = {
     experimental-features = "nix-command flakes";
@@ -13,19 +13,24 @@
   };
   system.stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
 
+  # boot
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.initrd.luks.devices."luks-a77d21c1-0d1e-41ba-915b-9d6377bf16ac".device = "/dev/disk/by-uuid/a77d21c1-0d1e-41ba-915b-9d6377bf16ac";
-  boot.kernelParams = ["amdgpu.sg_display=0"];
+
+  # kernel
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelParams = ["amdgpu.sg_display=0"]; # currently a bug with some AMD iGPUs and white screen flickering
 
   # network
   networking.networkmanager.enable = true;
   networking.hostName = "machine";
+
+  # bluetooth
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
-  # locale settings
+  # locale
   time.timeZone = "Europe/London";
   i18n.defaultLocale = "en_GB.UTF-8";
   i18n.extraLocaleSettings = {
@@ -54,8 +59,6 @@
       user = "jak";
   };
 
-  services.printing.enable = true;
-
   # sound
   sound.enable = true;
   hardware.pulseaudio.enable = false;
@@ -67,6 +70,8 @@
     pulse.enable = true;
   };
     
+  services.printing.enable = true;
+
   users.users.jak = {
     isNormalUser = true;
     description = "jak";
@@ -75,12 +80,13 @@
 
   home-manager = {
     extraSpecialArgs = { inherit inputs outputs; };
+    home.stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
+
     users.jak = {
       home = {
         username = "jak";
         homeDirectory = "/home/jak";
       };
-      home.stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
 
       # installed programs
       home.packages = with pkgs; [

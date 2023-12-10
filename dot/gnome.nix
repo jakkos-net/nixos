@@ -1,5 +1,6 @@
 {lib, ... } : 
 let
+  # a workspace is created and assigned for each key listed here
   workspaces = ["q" "w" "e" "r" "t" "a" "s" "d" "f" "g" "z" "x" "c" "1" "2" "3" "4" "5" "6" "7" "8" "9" "0"];
 
   custom_keybinds = [
@@ -54,16 +55,17 @@ in
       "org/gnome/desktop/input-sources" = {
         xkb-options = ["caps:escape_shifted_capslock"];
       };
-
   } 
-  # everything below here is just code to set up the custom keybindings and workspaces
+  # everything below here is just code to set up the custom keybindings and workspaces i defined at the top of this file
   // 
   ( let
-      make_workspace_keybind = idx: ws: [
+      build_workspace_keybind = idx: ws: [
+          # switch to a workspace with Super+<workspace key>
           {name = "switch_to_workspace-${toString idx}"; command = "wmctrl -s ${toString idx}"; binding = "<Super>${ws}";}
+          # move the focus window to a workspace with Super+Shift+<workspace key>
           {name = "move_window_to_workspace-${toString idx}"; command = "wmctrl -r :ACTIVE: ${toString idx}"; binding = "<Super><Shift>${ws}";}
         ];
-      workspace_keybinds = lib.lists.flatten (lib.lists.imap0 make_workspace_keybind workspaces);
+      workspace_keybinds = lib.lists.flatten (lib.lists.imap0 build_workspace_keybind workspaces);
       all_keybinds = custom_keybinds ++ workspace_keybinds;
     in
     (

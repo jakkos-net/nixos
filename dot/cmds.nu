@@ -1,7 +1,8 @@
 alias j = just
 alias g = gitui
-alias up = sudo nixos-rebuild --switch flake ~/nixos#machine
+alias up = sudo nixos-rebuild switch --flake ~/nixos#machine
+alias ns = nix shell -p
 
-def double [x] {
-  $"($x)($x)"
-}
+# def double [x] {
+#   $"($x)($x)"
+# }

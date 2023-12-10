@@ -1,3 +1,5 @@
+# aliases and custom commands for nushell
+
 alias j = just
 alias g = gitui
 alias up = sudo nixos-rebuild switch --flake ~/nixos#machine

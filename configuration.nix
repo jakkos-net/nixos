@@ -5,21 +5,27 @@
     ./hardware-configuration.nix
   ];
 
+  # nix settings
   nixpkgs.config.allowUnfree = true;
-
   nix.settings = {
     experimental-features = "nix-command flakes";
     auto-optimise-store = true;
   };
+  system.stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.initrd.luks.devices."luks-a77d21c1-0d1e-41ba-915b-9d6377bf16ac".device = "/dev/disk/by-uuid/a77d21c1-0d1e-41ba-915b-9d6377bf16ac";
   boot.kernelParams = ["amdgpu.sg_display=0"];
+
+  # network
   networking.networkmanager.enable = true;
   networking.hostName = "machine";
-  
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+
+  # locale settings
   time.timeZone = "Europe/London";
   i18n.defaultLocale = "en_GB.UTF-8";
   i18n.extraLocaleSettings = {
@@ -37,21 +43,20 @@
     layout = "gb";
     xkbVariant = "";
   };
-  console.keyMap = "uk";
+  console.keyMap = "uk";  
 
-  services.xserver.libinput.enable = true; #touchpad
-  
+  # desktop
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.desktopManager.gnome.enable = true;
   services.xserver.enable = true;
   services.xserver.displayManager.autoLogin = {    
       enable = true;
       user = "jak";
   };
 
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-
   services.printing.enable = true;
 
+  # sound
   sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -61,12 +66,7 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
-
-  system.stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  
+    
   users.users.jak = {
     isNormalUser = true;
     description = "jak";
@@ -76,14 +76,13 @@
   home-manager = {
     extraSpecialArgs = { inherit inputs outputs; };
     users.jak = {
-      
       home = {
         username = "jak";
         homeDirectory = "/home/jak";
       };
-
       home.stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-      
+
+      # installed programs
       home.packages = with pkgs; [
         ripgrep-all
         gitui
@@ -127,6 +126,7 @@
         wmctrl
       ];
 
+      # other software configs
       imports = [
         ./dot/gnome.nix
         ./dot/desktop_entries.nix
@@ -169,6 +169,6 @@
     };
   };
 
-  programs.steam.enable = true;
+  programs.steam.enable = true; # steam needs special FHS stuff, so has to be enabled outside home-manager
   hardware.opengl.driSupport32Bit = true; # Enables support for 32bit libs that steam uses
 }

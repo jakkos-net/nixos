@@ -6,6 +6,7 @@ let
     {name = "fp"; exec = "firefox --private-window";}
     {name = "ym"; exec = "firefox --new-window music.youtube.com";}
     {name = "wa"; exec = "firefox --new-window web.whatsapp.com";}
+    {name = "gm"; exec = "firefox --new-window gmail.com";}
   ];
 in
 {

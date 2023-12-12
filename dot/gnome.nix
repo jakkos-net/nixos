@@ -15,7 +15,6 @@ in
 
       "org/gnome/desktop/interface" = {
         show-battery-percentage = true;
-        clock-show-seconds = true;
         clock-show-weekday = true;
         color-scheme = "prefer-dark";
       };

@@ -122,10 +122,11 @@
 
       # other software configs
       imports = [
-        ./dot/gnome.nix
         ./dot/desktop_entries.nix
       ];
 
+      dconf.settings = import ./dot/gnome.nix;
+      
       programs.git = {
         enable = true;
         extraConfig = {

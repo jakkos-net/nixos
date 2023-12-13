@@ -6,5 +6,5 @@ This is my NixOS config. As I only run NixOS solely on a single-user laptop, I'v
 - [dot/](dot/) contains (dot) files for configuring specific software when that config is longer than a few lines. E.g., my Gnome desktop settings, my Wezterm config, etc.
 - [hardware-configuration.nix](hardware-configuration.nix) is auto generated from running `nixos-generate-config`
 - [flake.nix](flake.nix) lists the dependencies (e.g. nixpkgs and home-manager) 
-- [flake.lock](flake.lock) tracks the versions of those dependencies
+- [flake.lock](flake.lock) is auto-generated and tracks the versions of those dependencies
 

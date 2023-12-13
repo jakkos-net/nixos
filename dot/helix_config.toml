@@ -6,7 +6,7 @@ auto-save = true
 auto-format = true
 
 [editor.file-picker]
-hidden = false
+hidden = true
 
 [editor.cursor-shape]
 insert = "bar"
@@ -15,6 +15,12 @@ select = "underline"
 
 [editor.whitespace]
 render = "none"
+
+[editor.indent-guides]
+render = true
+
+[editor.lsp]
+display-messages = true
 
 [editor.soft-wrap]
 enable = true

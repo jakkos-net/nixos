@@ -8,3 +8,7 @@ alias ns = nix-shell -p
 def nr [pkg cmd] {
   nix-shell -p $pkg --run $"($pkg) ($cmd)"
 }
+
+def gcm [repo_name] {
+  git clone git@github.com:jakkos-net/$repo_name 
+}

@@ -117,6 +117,7 @@
         lapce
         gnome.dconf-editor       
         wmctrl
+        yazi
       ];
 
       # other software configs

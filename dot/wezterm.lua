@@ -7,6 +7,7 @@ local act = wezterm.action
 
 local config = wezterm.config_builder()
 
+config.hide_mouse_cursor_when_typing = false;
 config.window_decorations = "RESIZE"
 config.default_prog = { 'nu' }
 config.window_background_opacity = 0.9

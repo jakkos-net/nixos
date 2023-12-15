@@ -37,7 +37,10 @@
   console.keyMap = "uk";  
 
   # desktop
-  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.displayManager.gdm = {
+    enable = true;
+    wayland = true;
+  };
   services.xserver.desktopManager.gnome.enable = true;
   services.xserver.enable = true;
   services.xserver.displayManager.autoLogin = {    
@@ -116,8 +119,8 @@
         ffmpeg
         lapce
         gnome.dconf-editor       
-        wmctrl
         yazi
+        libreoffice
       ];
 
       # other software configs

@@ -1,7 +1,7 @@
 theme = "dracula"
 
 [editor]
-line-number = "relative"
+# line-number = "relative"
 auto-save = true
 auto-format = true
 

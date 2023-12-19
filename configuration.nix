@@ -121,6 +121,7 @@
         gnome.dconf-editor       
         yazi
         libreoffice
+        wl-clipboard
       ];
 
       # other software configs

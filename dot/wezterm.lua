@@ -2,7 +2,6 @@ local io = require 'io'
 local os = require 'os'
 
 local wezterm = require 'wezterm'
-local mux = wezterm.mux
 local act = wezterm.action
 
 local config = wezterm.config_builder()
@@ -19,8 +18,7 @@ config.window_padding = {
   top = 5,
   bottom = 5,
 }
--- config.initial_cols = 5000
--- config.initial_rows = 5000
+
 config.keys = {
   { key = '1', mods = 'ALT', action = act.ActivatePaneByIndex(0) },
   { key = '2', mods = 'ALT', action = act.ActivatePaneByIndex(1) },

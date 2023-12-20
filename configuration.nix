@@ -123,7 +123,6 @@
         libreoffice
         wl-clipboard
         rclone
-        wgsl_analyzer
       ];
 
       # other software configs

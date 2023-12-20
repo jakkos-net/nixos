@@ -7,7 +7,7 @@ let
     {name = "ym"; exec = "firefox --new-window music.youtube.com";}
     {name = "wa"; exec = "firefox --new-window web.whatsapp.com";}
     {name = "gm"; exec = "firefox --new-window gmail.com";}
-    {name = "ta"; exec = "firefox --new-window https://calendar.google.com/calendar/u/0/r/tasks?pli=1";}
+    {name = "ta"; exec = "firefox --new-window https://calendar.google.com/calendar/u/0/r/tasks";}
   ];
 in
 {

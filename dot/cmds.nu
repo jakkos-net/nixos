@@ -14,7 +14,7 @@ def nr [pkg cmd] {
 }
 
 def gcm [repo_name] {
-  git clone git@github.com:jakkos-net/$repo_name 
+  git clone $"git@github.com:jakkos-net/($repo_name)" 
 }
 
 def far [from, to] {

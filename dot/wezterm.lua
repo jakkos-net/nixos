@@ -1,8 +1,9 @@
 local io = require 'io'
 local os = require 'os'
-
 local wezterm = require 'wezterm'
+
 local act = wezterm.action
+local mux = wezterm.mux
 
 local config = wezterm.config_builder()
 
@@ -39,15 +40,28 @@ config.keys = {
   { key = '#', mods = 'ALT', action = act.EmitEvent 'dev-layout'}
 }
 
-wezterm.on('dev-layout', function(window,pane)
+wezterm.on('dev-layout', function(window, pane)
   local child_pane = pane:split {
     direction = 'Right',
-    size = 0.2,
+    size = 0.33,
   }
+
+  -- split into two thirds top, one third bottom
   child_pane:split {
-    direction = 'Bottom'
+    direction = 'Bottom',
+    size = 0.33
   }
-  window:maximize()
+
+  -- split the top two thirds in half, to get 3 thirds
+  child_pane:split {
+    direction = 'Bottom',
+    size = 0.5
+  }
+end)
+
+wezterm.on('gui-startup', function(cmd)
+  local tab, pane, window = mux.spawn_window(cmd or {})
+  window:gui_window():maximize()
 end)
 
 -- open the visible terminal text in editor

@@ -58,8 +58,6 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-
-  powerManagement.powertop.enable = true;
     
   services.printing.enable = true;
 

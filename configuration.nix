@@ -76,7 +76,7 @@
         stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
       };
 
-      # installed programs
+      # installed programs and their configs
       home.packages = with pkgs; [
         ripgrep-all
         gitui
@@ -121,14 +121,14 @@
         libreoffice
         wl-clipboard
         rclone
+        rustdesk
       ];
 
-      # other software configs
       imports = [
-        ./dot/desktop_entries.nix
+        ./dot/desktop_entries.nix # app launcher shortcuts
       ];
 
-      dconf.settings = import ./dot/gnome.nix;
+      dconf.settings = import ./dot/gnome.nix; # gnome desktop settings
       
       programs.git = {
         enable = true;

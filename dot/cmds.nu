@@ -17,6 +17,11 @@ def gcm [repo_name] {
   git clone $"git@github.com:jakkos-net/($repo_name)" 
 }
 
+def gpr [new_repo_name] {
+  gh repo create $new_repo_name --private --source=. --remote=upstream
+  git push --set-upstream upstream master
+}
+
 def far [from, to] {
   fd --type file --exec sd $from $to
 }

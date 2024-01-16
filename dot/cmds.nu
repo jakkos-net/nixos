@@ -8,6 +8,13 @@ alias ns = nix-shell -p
 alias tldr = tldr --update
 alias y = yazi
 alias gd = watchexec -d 30000 "git stage -A; git commit -m 'auto-commit on file change'; git pull --rebase; git push"
+alias dbn = distrobox create -i docker.io/archlinux:latest -n arch
+alias dbe = distrobox enter arch
+
+def dbr [] {
+  distrobox rm arch
+  dbn
+}
 
 def nr [pkg cmd] {
   nix-shell -p $pkg --run $"($pkg) ($cmd)"

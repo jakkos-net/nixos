@@ -17,16 +17,12 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.luks.devices."luks-a77d21c1-0d1e-41ba-915b-9d6377bf16ac".device = "/dev/disk/by-uuid/a77d21c1-0d1e-41ba-915b-9d6377bf16ac";
-
-  # kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = ["amdgpu.sg_display=0"]; # currently a bug with some AMD iGPUs and white screen flickering
 
-  # network
+  # networking
   networking.networkmanager.enable = true;
   networking.hostName = "machine";
-
-  # bluetooth
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
@@ -122,6 +118,7 @@
         wl-clipboard
         rclone
         rustdesk
+        distrobox
       ];
 
       imports = [
@@ -166,6 +163,8 @@
       };
     };
   };
+
+  virtualisation.podman.enable = true; # used for distrobox
 
   programs.steam.enable = true; # steam needs special FHS stuff, so has to be enabled outside home-manager
   hardware.opengl.driSupport32Bit = true; # Enables support for 32bit libs that steam uses

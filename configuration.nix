@@ -74,13 +74,19 @@
 
       # installed programs and their configs
       home.packages = with pkgs; [
+        ripgrep
         ripgrep-all
+        jq
+        poppler
+        fzf
+        unar
+        ffmpegthumbnailer
+        fd
         gitui
         mpv
         bacon
         rustup
         firefox
-        skim
         tealdeer
         typst
         typst-lsp
@@ -94,8 +100,6 @@
         unzip
         python311
         gh
-        bat
-        fd
         taplo
         ltex-ls
         sd
@@ -111,9 +115,7 @@
         deluge
         watchexec
         ffmpeg
-        lapce
         gnome.dconf-editor       
-        yazi
         libreoffice
         wl-clipboard
         rclone
@@ -153,7 +155,7 @@
         extraConfig = builtins.readFile ./dot/cmds.nu;
       };
 
-      programs.zoxide = {
+      programs.yazi = {
         enable = true;
         enableNushellIntegration = true;
       };

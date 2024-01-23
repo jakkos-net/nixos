@@ -9,6 +9,7 @@ let
     {name = "wa"; exec = "firefox --new-window web.whatsapp.com";}
     {name = "gm"; exec = "firefox --new-window gmail.com";}
     {name = "ta"; exec = "firefox --new-window https://calendar.google.com/calendar/u/0/r/tasks";}
+    {name = "rustdesk"; exec = "rustdesk";} # for some reason nix pkg doesn't come with desktop entry?
   ];
 in
 {

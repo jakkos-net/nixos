@@ -2,6 +2,7 @@
 
 alias j = just
 alias g = gitui
+alias b = bacon
 alias up = sudo nixos-rebuild switch --flake ~/nixos#machine
 alias fu = sudo nix flake update
 alias ns = nix-shell -p

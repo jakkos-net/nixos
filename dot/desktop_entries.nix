@@ -7,8 +7,7 @@ let
     {name = "ff"; exec = browser [];}
     {name = "fp"; exec = "firefox --private-window";}
     {name = "wa"; exec = browser [
-      "https://calendar.google.com/calendar/u/0/r/tasks"
-      "https://calendar.google.com/calendar/u/0/r"
+      "https://web.whatsapp.com/"
     ];}
     {name = "ta"; exec = browser [
       "https://calendar.google.com/calendar/u/0/r/tasks"

@@ -43,21 +43,25 @@ config.keys = {
 wezterm.on('dev-layout', function(window, pane)
   local child_pane = pane:split {
     direction = 'Right',
+    args = {"nu", "-e", "nix develop --command bacon"},
     size = 0.33,
   }
-
   -- split into two thirds top, one third bottom
   child_pane:split {
     direction = 'Bottom',
-    size = 0.33
+    size = 0.33,
   }
-
   -- split the top two thirds in half, to get 3 thirds
   child_pane:split {
     direction = 'Bottom',
+    args = {"nu", "-e", "gitui"},
     size = 0.5
   }
+  window:perform_action(wezterm.action{SendString = "hx"}, pane)
+  window:perform_action(wezterm.action{SendKey={key="Enter", mods="NONE"}}, pane)
+  pane:activate()
 end)
+
 
 wezterm.on('gui-startup', function(cmd)
   local tab, pane, window = mux.spawn_window(cmd or {})

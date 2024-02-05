@@ -9,12 +9,22 @@ $env.PROMPT_COMMAND = {||
             $env.PWD
         }
     )
-
     let path_color = (if (is-admin) { ansi red_bold } else { ansi green_bold })
     let separator_color = (if (is-admin) { ansi light_red_bold } else { ansi light_green_bold })
     let path_segment = $"($path_color)($dir)"
+    let branch = (git_branch)
+    let path_and_branch = $"($path_segment)($branch)"
 
-    $path_segment | str replace --all (char path_sep) $"($separator_color)(char path_sep)($path_color)"
+    $path_and_branch | str replace --all (char path_sep) $"($separator_color)(char path_sep)($path_color)"
+}
+
+def git_branch [] {
+    let x = do { git status } | complete
+    if $x.exit_code == 0 {
+        $x.stdout | split row "\n" | first | str replace "On branch " $"(ansi white)|(ansi magenta)"
+    } else {
+        ""
+    }
 }
 
 $env.PROMPT_COMMAND_RIGHT = {||

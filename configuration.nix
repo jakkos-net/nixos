@@ -125,7 +125,6 @@
 
       imports = [
         ./dot/desktop_entries.nix # app launcher shortcuts
-        # ./dot/timers.nix # scheduled tasks, e.g. regular backup
       ];
 
       dconf.settings = import ./dot/gnome.nix; # gnome desktop settings

@@ -8,9 +8,8 @@ alias fu = sudo nix flake update
 alias ns = nix-shell -p
 alias tldr = tldr --update
 alias y = yazi
-alias gd = watchexec -d 30000 "git stage -A; git commit -m 'auto-commit on file change'; git pull --rebase; git push"
-alias dbn = distrobox create -i docker.io/archlinux:latest -n arch
-alias dbe = distrobox enter arch
+alias gitdoc = watchexec -d 30000 "git stage -A; git commit -m 'auto-commit on file change'; git pull --rebase; git push"
+alias arch = distrobox enter arch
 
 def fup [] {
   fu
@@ -18,23 +17,25 @@ def fup [] {
 }
 
 def dbr [] {
+  distrobox stop arch
   distrobox rm arch
-  dbn
+  distrobox create -i docker.io/archlinux:latest -n arch
+  arch
 }
 
-def nr [pkg cmd] {
+def nsr [pkg cmd] {
   nix-shell -p $pkg --run $"($pkg) ($cmd)"
 }
 
-def gcm [repo_name] {
+def ghclone [repo_name] {
   git clone $"git@github.com:jakkos-net/($repo_name)" 
 }
 
-def gpr [new_repo_name] {
+def ghpush [new_repo_name] {
   gh repo create $new_repo_name --private --source=. --remote=upstream
   git push --set-upstream upstream master
 }
 
-def far [from, to] {
+def findrep [from, to] {
   fd --type file --exec sd $from $to
 }

@@ -12,6 +12,11 @@ alias gd = watchexec -d 30000 "git stage -A; git commit -m 'auto-commit on file 
 alias dbn = distrobox create -i docker.io/archlinux:latest -n arch
 alias dbe = distrobox enter arch
 
+def fup [] {
+  fu
+  up
+}
+
 def dbr [] {
   distrobox rm arch
   dbn

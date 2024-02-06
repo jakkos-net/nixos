@@ -37,10 +37,21 @@ config.keys = {
   { key = 'l', mods = 'ALT', action = act.EmitEvent 'trigger-hx-with-visible-text'},
   { key = '.', mods = 'ALT', action = act.ActivateTabRelative(-1) },
   { key = ',', mods = 'ALT', action = act.ActivateTabRelative(1) },
-  { key = '#', mods = 'ALT', action = act.EmitEvent 'dev-layout'}
+  { key = '#', mods = 'ALT', action = act.EmitEvent 'rust-layout'},
+  { key = ';', mods = 'ALT', action = act.EmitEvent 'second-brain-layout'},
 }
 
-wezterm.on('dev-layout', function(window, pane)
+wezterm.on('gui-startup', function(cmd)
+  local tab, pane, window = mux.spawn_window(cmd or {})
+  window:gui_window():maximize()
+  local layout = os.getenv("WEZTERM_LAYOUT")
+   if layout == "second_brain" then
+    wezterm.emit('second-brain-layout')
+   end
+end)
+
+
+wezterm.on('rust-layout', function(window, pane)
   local child_pane = pane:split {
     direction = 'Right',
     args = {"nu", "-e", "nix develop --command bacon"},
@@ -62,11 +73,24 @@ wezterm.on('dev-layout', function(window, pane)
   pane:activate()
 end)
 
-
-wezterm.on('gui-startup', function(cmd)
-  local tab, pane, window = mux.spawn_window(cmd or {})
-  window:gui_window():maximize()
+wezterm.on('second-brain-layout', function(window,pane)
+  local child_pane = pane:split {
+    direction = 'Right',
+    args = {"nu", "-e", "ls"},
+    size = 0.33,
+  }
+  -- split the top two thirds in half, to get 3 thirds
+  child_pane:split {
+    direction = 'Bottom',
+    args = {"nu", "-e", "gitui"},
+    size = 0.5
+  }
+  window:perform_action(wezterm.action{SendString = "hx"}, pane)
+  window:perform_action(wezterm.action{SendKey={key="Enter", mods="NONE"}}, pane)
+  pane:activate()
 end)
+
+
 
 -- open the visible terminal text in editor
 wezterm.on('trigger-hx-with-visible-text', function(window, pane)

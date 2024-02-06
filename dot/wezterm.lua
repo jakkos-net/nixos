@@ -89,8 +89,6 @@ wezterm.on('second-brain-layout', function(window,pane)
   pane:activate()
 end)
 
-
-
 -- open the visible terminal text in editor
 wezterm.on('trigger-hx-with-visible-text', function(window, pane)
   local viewport_text = pane:get_lines_as_text()

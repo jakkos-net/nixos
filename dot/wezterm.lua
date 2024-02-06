@@ -76,13 +76,12 @@ end)
 wezterm.on('second-brain-layout', function(window,pane)
   local child_pane = pane:split {
     direction = 'Right',
-    args = {"nu", "-e", "ls"},
+    args = {"nu", "-e", "gitdoc"},
     size = 0.33,
   }
   -- split the top two thirds in half, to get 3 thirds
   child_pane:split {
     direction = 'Bottom',
-    args = {"nu", "-e", "gitui"},
     size = 0.5
   }
   window:perform_action(wezterm.action{SendString = "hx"}, pane)

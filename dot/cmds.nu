@@ -1,5 +1,6 @@
 # aliases and custom commands for nushell
 
+alias h = hx
 alias j = just
 alias g = gitui
 alias b = bacon
@@ -10,6 +11,11 @@ alias tldr = tldr --update
 alias y = yazi
 alias gitdoc = watchexec -d 30000 "git stage -A; git commit -m 'auto-commit on file change'; git pull --rebase; git push"
 alias arch = distrobox enter arch
+
+def zh [dir] {
+  z $dir
+  h
+}
 
 def fup [] {
   fu

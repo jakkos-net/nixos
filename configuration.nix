@@ -121,6 +121,7 @@
         rclone
         rustdesk
         distrobox
+        element-desktop
       ];
 
       imports = [

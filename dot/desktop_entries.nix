@@ -1,6 +1,10 @@
 {lib, ...} :
 let
-  browser = tabs : "firefox --new-window " + (builtins.concatStringsSep " "(builtins.map (tab : "--new-tab -url ${tab}") tabs));
+  # function to generate cmd to open browser with list of tabs
+  browser = tabs : "firefox --new-window " + (if (builtins.length tabs) == 1 then
+      builtins.head tabs # single tab needs different syntax, otherwise opens in last active windows instead of new window
+    else
+      (builtins.concatStringsSep " "(builtins.map (tab : "--new-tab -url ${tab}") tabs)));
   # for each item in this list, create a desktop entry
   # e.g. this allows me start a firefox private window from my app launcher
   entries = [

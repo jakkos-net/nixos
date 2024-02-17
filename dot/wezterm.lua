@@ -35,8 +35,8 @@ config.keys = {
   { key = 'RightArrow', mods = 'ALT|SHIFT', action = act.AdjustPaneSize { 'Right', 5 }},
   { key = 't', mods = 'ALT', action = act.SpawnTab 'DefaultDomain'},
   { key = 'l', mods = 'ALT', action = act.EmitEvent 'trigger-hx-with-visible-text'},
-  { key = '.', mods = 'ALT', action = act.ActivateTabRelative(-1) },
-  { key = ',', mods = 'ALT', action = act.ActivateTabRelative(1) },
+  { key = ',', mods = 'ALT', action = act.ActivateTabRelative(-1) },
+  { key = '.', mods = 'ALT', action = act.ActivateTabRelative(1) },
   { key = '#', mods = 'ALT', action = act.EmitEvent 'rust-layout'},
   { key = ';', mods = 'ALT', action = act.EmitEvent 'second-brain-layout'},
 }

@@ -2,7 +2,7 @@
 
   imports = [
     inputs.home-manager.nixosModules.home-manager
-    ./hardware-configuration.nix
+    ./hardware-configuration.nix #auto-generated depending on hardware (`nixos-generate-config`)
   ];
 
   # nix
@@ -32,7 +32,7 @@
   services.xserver.xkb.layout = "gb";
   console.keyMap = "uk";  
 
-  # desktop
+  # desktop environment
   services.xserver.displayManager.gdm = {
     enable = true;
     wayland = true;
@@ -63,6 +63,7 @@
     extraGroups = [ "networkmanager" "wheel" ];
   };
 
+  # home-manager is used for user-level configuration, e.g. dotfiles
   home-manager = {
     extraSpecialArgs = { inherit inputs outputs; };
     users.jak = {
@@ -71,8 +72,13 @@
         homeDirectory = "/home/jak";
         stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
       };
+      
+      imports = [
+        ./dot/desktop_entries.nix # app launcher shortcuts
+        ./dot/gnome.nix # gnome desktop settings
+      ];
 
-      # installed programs and their configs
+      # installed programs
       home.packages = with pkgs; [
         ripgrep
         ripgrep-all
@@ -124,12 +130,7 @@
         element-desktop
       ];
 
-      imports = [
-        ./dot/desktop_entries.nix # app launcher shortcuts
-      ];
-
-      dconf.settings = import ./dot/gnome.nix; # gnome desktop settings
-      
+      # installed programs that have extra config          
       programs.git = {
         enable = true;
         extraConfig = {

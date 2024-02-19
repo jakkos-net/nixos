@@ -141,7 +141,7 @@
 
       programs.helix = {
         enable = true;
-        settings = builtins.fromTOML (builtins.readFile ./dot/helix_config.toml);
+        settings = builtins.fromTOML (builtins.readFile ./dot/helix.toml);
       };
 
       programs.wezterm = {

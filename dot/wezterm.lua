@@ -9,19 +9,24 @@ config.color_scheme = 'Dracula'
 
 local act = wezterm.action
 config.keys = {
-  { key = '1', mods = 'ALT', action = act.ActivatePaneByIndex(0) },
-  { key = '2', mods = 'ALT', action = act.ActivatePaneByIndex(1) },
-  { key = '3', mods = 'ALT', action = act.ActivatePaneByIndex(2) },
-  { key = '4', mods = 'ALT', action = act.ActivatePaneByIndex(3) },
-  { key = 'Backspace', mods = 'ALT', action = act.CloseCurrentPane { confirm = false }},
-  { key = 'Backspace', mods = 'ALT|SHIFT', action = act.CloseCurrentTab { confirm = false }},
-  { key = 'v', mods = 'ALT', action = act.SplitVertical { domain = 'CurrentPaneDomain' }},
-  { key = 'h', mods = 'ALT', action = act.SplitHorizontal { domain = 'CurrentPaneDomain' }},
-  { key = 't', mods = 'ALT', action = act.SpawnTab 'DefaultDomain'},
-  { key = ',', mods = 'ALT', action = act.ActivateTabRelative(-1) },
-  { key = '.', mods = 'ALT', action = act.ActivateTabRelative(1) },
-  { key = '#', mods = 'ALT', action = act.EmitEvent 'rust-layout'},
+  {key = 'q', mods = 'ALT', action = act.ActivatePaneByIndex(0)},
+  {key = 'w', mods = 'ALT', action = act.ActivatePaneByIndex(1)},
+  {key = 'e', mods = 'ALT', action = act.ActivatePaneByIndex(2)},
+  {key = 'r', mods = 'ALT', action = act.ActivatePaneByIndex(3)},
+  {key = 'Backspace', mods = 'ALT', action = act.CloseCurrentPane { confirm = false }},
+  {key = 'Backspace', mods = 'ALT|SHIFT', action = act.CloseCurrentTab { confirm = false }},
+  {key = 'v', mods = 'ALT', action = act.SplitVertical { domain = 'CurrentPaneDomain' }},
+  {key = 'h', mods = 'ALT', action = act.SplitHorizontal { domain = 'CurrentPaneDomain' }},
+  {key = 't', mods = 'ALT', action = act.SpawnTab 'DefaultDomain'},
+  {key = 'LeftArrow', mods = 'ALT', action = act.ActivateTabRelative(-1)},
+  {key = 'RightArrow', mods = 'ALT', action = act.ActivateTabRelative(1)},
+  {key = 'LeftArrow', mods = 'ALT|SHIFT', action = act.MoveTabRelative(-1)},
+  {key = 'RightArrow', mods = 'ALT|SHIFT', action = act.MoveTabRelative(1)},
+  {key = '#', mods = 'ALT', action = act.EmitEvent 'rust-layout'},
 }
+for i = 1, 9 do
+  table.insert(config.keys, {key = tostring(i), mods = 'ALT', action = act.ActivateTab(i - 1)})
+end
 
 wezterm.on('gui-startup', function(cmd)
   local _, _, window = wezterm.mux.spawn_window(cmd or {})
@@ -34,12 +39,10 @@ wezterm.on('rust-layout', function(window, pane)
     args = {"nu", "-e", "nix develop --command bacon"},
     size = 0.33,
   }
-  -- split into two thirds top, one third bottom
   child_pane:split {
     direction = 'Bottom',
     size = 0.33,
   }
-  -- split the top two thirds in half, to get 3 thirds
   child_pane:split {
     direction = 'Bottom',
     args = {"nu", "-e", "gitui"},

@@ -121,13 +121,13 @@
         deluge
         watchexec
         ffmpeg
-        gnome.dconf-editor       
         libreoffice
         wl-clipboard
         rclone
         rustdesk
         distrobox
         element-desktop
+        powertop
       ];
 
       # installed programs that have extra config          

@@ -1,4 +1,9 @@
-{...}: { 
+{pkgs, ...}: { 
+
+  home.packages = with pkgs;[
+        gnome.dconf-editor       
+  ];
+  
   dconf.settings = {
     "org/gnome/desktop/sound" = {
       allow-volume-above-100-percent = true;

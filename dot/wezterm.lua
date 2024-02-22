@@ -1,11 +1,17 @@
 local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 
-config.hide_mouse_cursor_when_typing = false;
+config.hide_mouse_cursor_when_typing = false
 config.window_decorations = "RESIZE"
 config.default_prog = { 'nu' }
+config.use_fancy_tab_bar = false
 config.hide_tab_bar_if_only_one_tab = true
 config.color_scheme = 'Dracula'
+config.colors = {
+  tab_bar = {
+    background = '#000000'
+  }
+}
 
 local act = wezterm.action
 config.keys = {

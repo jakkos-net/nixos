@@ -1,5 +1,4 @@
 # aliases and custom commands for nushell
-
 alias h = hx
 alias j = just
 alias g = gitui
@@ -21,7 +20,7 @@ def fup [] {
   up
 }
 
-def dbr [] {
+def resetarch [] {
   distrobox stop arch
   distrobox rm arch
   distrobox create -i docker.io/archlinux:latest -n arch

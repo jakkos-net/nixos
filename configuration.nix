@@ -86,40 +86,41 @@
         poppler
         fzf
         unar
+        ffmpeg
         ffmpegthumbnailer
         fd
         gitui
         mpv
-        bacon
         rustup
         firefox
+        google-chrome
         typst
         typst-lsp
         nil
-        tokei
         nixfmt
+        python311
+        lua-language-server
+        ltex-ls
+        marksman
+        taplo
+        vscode-extensions.vadimcn.vscode-lldb.adapter
+        bacon
+        tokei
         bat
         gallery-dl
-        marksman
-        lua-language-server
-        unzip
-        python311
         gh
-        taplo
-        ltex-ls
         sd
         p7zip
         ouch
+        unzip
         just
         deluge
-        google-chrome
         discord
         krita
         zotero
         blender
         deluge
         watchexec
-        ffmpeg
         libreoffice
         wl-clipboard
         rclone

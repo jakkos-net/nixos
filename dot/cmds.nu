@@ -7,7 +7,6 @@ alias b = bacon
 alias up = sudo nixos-rebuild switch --flake ~/nixos#machine
 alias fu = sudo nix flake update
 alias ns = nix-shell -p
-alias tldr = tldr --update
 alias y = yazi
 alias gitdoc = watchexec -d 30000 "git stage -A; git commit -m 'auto-commit on file change'; git pull --rebase; git push"
 alias arch = distrobox enter arch

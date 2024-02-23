@@ -93,7 +93,6 @@
         bacon
         rustup
         firefox
-        tealdeer
         typst
         typst-lsp
         nil
@@ -128,6 +127,7 @@
         distrobox
         element-desktop
         powertop
+        bottom
       ];
 
       # installed programs that have extra config          
@@ -169,6 +169,11 @@
       programs.zoxide = {
         enable = true;
         enableNushellIntegration = true;
+      };
+
+      programs.tealdeer = {
+        enable = true;
+        settings.updates.auto_update = true;
       };
     };
   };

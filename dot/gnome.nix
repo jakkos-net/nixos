@@ -1,7 +1,7 @@
 {pkgs, ...}: { 
 
   home.packages = with pkgs;[
-        gnome.dconf-editor       
+    gnome.dconf-editor       
   ];
   
   dconf.settings = {

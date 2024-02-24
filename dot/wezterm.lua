@@ -12,9 +12,10 @@ config.colors = {
     background = '#000000'
   }
 }
+config.text_background_opacity = 0.25
 config.window_background_image = "/home/jak/wallpaper"
 config.window_background_image_hsb = {
-  brightness = 0.2
+  brightness = 0.25
 }
 
 local act = wezterm.action

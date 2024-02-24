@@ -78,6 +78,8 @@
         ./dot/gnome.nix # gnome desktop settings
       ];
 
+      home.file."wallpaper".source = ./dot/wallpaper;
+
       # installed programs
       home.packages = with pkgs; [
         ripgrep
@@ -143,6 +145,7 @@
       programs.helix = {
         enable = true;
         settings = builtins.fromTOML (builtins.readFile ./dot/helix.toml);
+        themes = { dracula_transparent = { inherits = "dracula"; "ui.background" = {}; }; };
       };
 
       programs.wezterm = {
@@ -154,7 +157,6 @@
         enable = true;
         configFile.text = builtins.readFile ./dot/config.nu;
         envFile.text = builtins.readFile ./dot/env.nu;
-        extraConfig = builtins.readFile ./dot/cmds.nu;
       };
 
       programs.yazi = {

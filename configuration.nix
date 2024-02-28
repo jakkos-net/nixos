@@ -131,6 +131,7 @@
         element-desktop
         powertop
         bottom
+        csview
       ];
 
       # installed programs that have extra config          

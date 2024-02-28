@@ -112,7 +112,6 @@
         gallery-dl
         gh
         sd
-        p7zip
         ouch
         unzip
         just

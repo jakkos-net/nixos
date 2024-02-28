@@ -5,7 +5,6 @@ $env.config = {
     }
 }
 
-# aliases and custom commands for nushell
 alias h = hx
 alias j = just
 alias g = gitui
@@ -49,4 +48,8 @@ def ghpush [new_repo_name] {
 
 def findrep [from, to] {
   fd --type file --exec sd $from $to
+}
+
+def csview [file] {
+  ^csview $file | less -S
 }

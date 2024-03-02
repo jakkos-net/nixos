@@ -1,7 +1,6 @@
 theme = "dracula_transparent"
 
 [editor]
-# line-number = "relative"
 auto-save = true
 auto-format = true
 
@@ -13,28 +12,10 @@ insert = "bar"
 normal = "block"
 select = "underline"
 
-[editor.whitespace]
-render = "none"
-
 [editor.indent-guides]
 render = true
 
-[editor.lsp]
-display-messages = true
-
 [editor.soft-wrap]
 enable = true
-
-[keys.insert]
-up = "no_op"
-down = "no_op"
-left = "no_op"
-right = "no_op"
-
-[keys.normal]
-up = "no_op"
-down = "no_op"
-left = "no_op"
-right = "no_op"
 
 

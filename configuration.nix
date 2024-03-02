@@ -183,9 +183,4 @@
 
   programs.steam.enable = true; # steam needs special FHS stuff, so has to be enabled outside home-manager
   hardware.opengl.driSupport32Bit = true; # Enables support for 32bit libs that steam uses
-
-  programs.nix-ld = { # allow running unpatched random binaries
-    enable = true;
-    libraries = [];
-  };
 }

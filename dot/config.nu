@@ -5,6 +5,7 @@ $env.config = {
     }
 }
 
+alias zz = z ../
 alias h = hx
 alias j = just
 alias g = gitui

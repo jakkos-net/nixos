@@ -12,7 +12,7 @@ config.colors = {
     background = '#000000'
   }
 }
-config.window_background_image = "/home/jak/wallpaper"
+config.window_background_image = wezterm.home_dir .. "/wallpaper"
 config.window_background_image_hsb = {
   brightness = 0.25
 }

@@ -1,7 +1,6 @@
-{inputs, outputs, pkgs, ...}: {
+{pkgs, ...}: {
 
   imports = [
-    inputs.home-manager.nixosModules.home-manager
     ./hardware-configuration.nix #auto-generated depending on hardware (`nixos-generate-config`)
   ];
 
@@ -65,7 +64,6 @@
 
   # home-manager is used for user-level configuration, e.g. dotfiles
   home-manager = {
-    extraSpecialArgs = { inherit inputs outputs; };
     users.jak = {
       home = {
         username = "jak";

@@ -4,15 +4,13 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
-
-  outputs = {self, nixpkgs, home-manager,...} @ inputs: 
-  let
-    inherit (self) outputs;
-  in {
+  outputs = {nixpkgs, home-manager, ...}: {
     nixosConfigurations = {
       machine = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [./configuration.nix];
+        modules = [
+          ./configuration.nix
+          home-manager.nixosModules.home-manager
+        ];
       };
     };
   };

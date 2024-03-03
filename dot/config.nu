@@ -5,7 +5,7 @@ $env.config = {
     }
 }
 
-alias zz = z ../
+alias zz = cd ./..
 alias h = hx
 alias j = just
 alias g = gitui
@@ -16,16 +16,6 @@ alias ns = nix-shell -p
 alias y = yazi
 alias gitdoc = watchexec -d 30000 "git stage -A; git commit -m 'auto-commit on file change'; git pull --rebase; git push"
 alias arch = distrobox enter arch
-
-def zh [dir] {
-  z $dir
-  h
-}
-
-def fup [] {
-  fu
-  up
-}
 
 def resetarch [] {
   distrobox stop arch

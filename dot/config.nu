@@ -24,10 +24,6 @@ def resetarch [] {
   arch
 }
 
-def nsr [pkg cmd] {
-  nix-shell -p $pkg --run $"($pkg) ($cmd)"
-}
-
 def ghclone [repo_name] {
   git clone $"git@github.com:jakkos-net/($repo_name)" 
 }
@@ -43,4 +39,8 @@ def findrep [from, to] {
 
 def csview [file] {
   ^csview $file | less -S
+}
+
+def bg [cmd] {
+  bash -c $"($cmd) &"
 }

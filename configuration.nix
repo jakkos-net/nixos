@@ -32,16 +32,18 @@
   console.keyMap = "uk";  
 
   # desktop environment
-  services.xserver.displayManager.gdm = {
-    enable = true;
-    wayland = true;
-  };
-  services.xserver.desktopManager.gnome.enable = true;
   services.xserver.enable = true;
-  services.xserver.displayManager.autoLogin = {    
-      enable = true;
-      user = "jak";
-  };
+  # services.xserver.displayManager.autoLogin = {    
+  #     enable = true;
+  #     user = "jak";
+  # };
+  services.xserver.desktopManager.cosmic.enable = true;
+  services.xserver.displayManager.cosmic-greeter.enable = true;
+  # services.xserver.displayManager.gdm = {
+  #   enable = true;
+  #   wayland = true;
+  # };
+  # services.xserver.desktopManager.gnome.enable = true;
 
   # sound
   sound.enable = true;

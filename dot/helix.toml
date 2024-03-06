@@ -3,6 +3,7 @@ theme = "dracula_transparent"
 [editor]
 auto-save = true
 auto-format = true
+mouse = false
 
 [editor.file-picker]
 hidden = true

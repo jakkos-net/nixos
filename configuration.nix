@@ -129,6 +129,7 @@
         powertop
         bottom
         csview
+        renderdoc
       ];
 
       # installed programs that have extra config          

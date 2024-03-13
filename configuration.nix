@@ -130,6 +130,7 @@
         bottom
         csview
         renderdoc
+        zathura
       ];
 
       # installed programs that have extra config          

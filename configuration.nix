@@ -91,19 +91,16 @@
         fd
         gitui
         mpv
-        rustup
         firefox
         google-chrome
         typst
         typst-lsp
         nil
         nixfmt
-        python311
         lua-language-server
         ltex-ls
         marksman
         taplo
-        vscode-extensions.vadimcn.vscode-lldb.adapter
         bacon
         tokei
         bat
@@ -123,7 +120,7 @@
         libreoffice
         wl-clipboard
         rclone
-        rustdesk
+        # rustdesk
         distrobox
         element-desktop
         powertop
@@ -167,6 +164,7 @@
       programs.direnv = {
         enable = true;
         enableNushellIntegration = true;
+        nix-direnv.enable = true;
       };
 
       programs.zoxide = {

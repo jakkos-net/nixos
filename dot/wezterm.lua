@@ -33,6 +33,7 @@ config.keys = {
   {key = 'LeftArrow', mods = 'ALT|SHIFT', action = act.MoveTabRelative(-1)},
   {key = 'RightArrow', mods = 'ALT|SHIFT', action = act.MoveTabRelative(1)},
   {key = '#', mods = 'ALT', action = act.EmitEvent 'rust-layout'},
+  {key = 'j', mods = 'ALT', action = act.EmitEvent 'run-just-in-pane-3'},
 }
 for i = 1, 9 do
   table.insert(config.keys, {key = tostring(i), mods = 'ALT', action = act.ActivateTab(i - 1)})
@@ -61,6 +62,12 @@ wezterm.on('rust-layout', function(window, pane)
   window:perform_action(wezterm.action{SendString = "hx"}, pane)
   window:perform_action(wezterm.action{SendKey={key="Enter", mods="NONE"}}, pane)
   pane:activate()
+end)
+
+wezterm.on('run-just-in-pane-3', function(window, _)
+  local pane = window:active_tab():panes()[4]
+  window:perform_action(wezterm.action{SendString = "just"}, pane)
+  window:perform_action(wezterm.action{SendKey={key="Enter", mods="NONE"}}, pane)
 end)
 
 return config

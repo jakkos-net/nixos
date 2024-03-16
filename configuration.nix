@@ -95,14 +95,7 @@
         mpv
         firefox
         google-chrome
-        typst
-        typst-lsp
-        nil
-        nixfmt
-        lua-language-server
-        ltex-ls
         marksman
-        taplo
         bacon
         tokei
         bat
@@ -110,25 +103,20 @@
         gh
         sd
         ouch
-        unzip
         just
         deluge
         discord
         krita
         zotero
-        blender
         deluge
         watchexec
         libreoffice
         wl-clipboard
-        rclone
-        # rustdesk
         distrobox
         element-desktop
         powertop
         bottom
         csview
-        renderdoc
         zathura
       ];
 

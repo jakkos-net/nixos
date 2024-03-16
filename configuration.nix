@@ -120,7 +120,6 @@
         libreoffice
         wl-clipboard
         rclone
-        # rustdesk
         distrobox
         element-desktop
         powertop

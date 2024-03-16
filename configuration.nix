@@ -106,7 +106,6 @@
         discord
         krita
         zotero
-        blender
         deluge
         watchexec
         libreoffice

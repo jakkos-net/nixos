@@ -1,9 +1,4 @@
-{pkgs, ...}: { 
-
-  home.packages = with pkgs;[
-    gnome.dconf-editor       
-  ];
-  
+{pkgs, ...}: {  
   dconf.settings = {
     "org/gnome/desktop/sound" = {
       allow-volume-above-100-percent = true;
@@ -70,8 +65,6 @@
       xkb-options = ["caps:escape_shifted_capslock"];
     };
 
-    # custom key bindings are a bit verbose.. but I don't have enough to justify
-    # writing code to generate them
     "org/gnome/settings-daemon/plugins/media-keys" = {
       custom-keybindings = [
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"

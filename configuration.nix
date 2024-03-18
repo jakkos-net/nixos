@@ -32,10 +32,7 @@
   console.keyMap = "uk";  
 
   # desktop environment
-  services.xserver.displayManager.gdm = {
-    enable = true;
-    wayland = true;
-  };
+  services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
   services.xserver.enable = true;
   services.xserver.displayManager.autoLogin = {    
@@ -75,14 +72,13 @@
         username = "jak";
         homeDirectory = "/home/jak";
         stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
+        file."wallpaper".source = ./dot/wallpaper;
       };
       
       imports = [
         ./dot/desktop_entries.nix # app launcher shortcuts
         ./dot/gnome.nix # gnome desktop settings
       ];
-
-      home.file."wallpaper".source = ./dot/wallpaper;
 
       # installed programs
       home.packages = with pkgs; [
@@ -157,7 +153,7 @@
       programs.direnv = {
         enable = true;
         enableNushellIntegration = true;
-        nix-direnv.enable = true;
+        nix-direnv.enable = true; # more performant implementation
       };
 
       programs.zoxide = {

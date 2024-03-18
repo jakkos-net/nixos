@@ -53,9 +53,15 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-    
-  services.printing.enable = true;
 
+  # other
+  services.printing.enable = true;
+  virtualisation.podman.enable = true; # used for distrobox
+  programs.steam.enable = true; # steam needs special FHS stuff, so has to be enabled outside home-manager
+  hardware.opengl.driSupport32Bit = true; # Enables support for 32bit libs that steam uses
+  programs.nix-ld.enable = true; # run unpatched binaries
+
+  # user
   users.users.jak = {
     isNormalUser = true;
     description = "jak";
@@ -96,7 +102,6 @@
         marksman
         bacon
         tokei
-        bat
         gallery-dl
         gh
         sd
@@ -166,9 +171,4 @@
       };
     };
   };
-
-  virtualisation.podman.enable = true; # used for distrobox
-
-  programs.steam.enable = true; # steam needs special FHS stuff, so has to be enabled outside home-manager
-  hardware.opengl.driSupport32Bit = true; # Enables support for 32bit libs that steam uses
 }

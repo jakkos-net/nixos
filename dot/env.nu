@@ -1,13 +1,9 @@
 $env.PROMPT_COMMAND = {||
-    let home =  $nu.home-path
-    # replace home with ~
-    let dir = (
-        if ($env.PWD | path split | zip ($home | path split) | all { $in.0 == $in.1 }) {
-            ($env.PWD | str replace $home "~")
+    let dir = if ($env.PWD | path split | zip ($nu.home-path | path split) | all { $in.0 == $in.1 }) {
+            ($env.PWD | str replace $nu.home-path "~") # replace homepath with ~
         } else {
             $env.PWD
         }
-    )
     $"(ansi green_bold)($dir)(git_branch)" | str replace --all (char path_sep) $"(ansi light_green_bold)(char path_sep)(ansi green_bold)"
 }
 
@@ -21,4 +17,3 @@ def git_branch [] {
 }
 
 $env.EDITOR = "hx"
-# $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')

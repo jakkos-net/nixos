@@ -1,15 +1,10 @@
 {pkgs, ...}: {
-
-  imports = [
-    ./hardware-configuration.nix #auto-generated depending on hardware (`nixos-generate-config`)
-  ];
+  imports = [ ./hardware-configuration.nix ]; #auto-generated depending on hardware (`nixos-generate-config`)
 
   # nix
   nixpkgs.config.allowUnfree = true;
-  nix.settings = {
-    experimental-features = "nix-command flakes";
-    auto-optimise-store = true;
-  };
+  nix.settings.experimental-features = "nix-command flakes";
+  nix.settings.auto-optimise-store = true;
   system.stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
 
   # boot
@@ -35,137 +30,97 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
   services.xserver.enable = true;
-  services.xserver.displayManager.autoLogin = {    
-      enable = true;
-      user = "jak";
-  };
+  services.xserver.displayManager.autoLogin.enable = true;
+  services.xserver.displayManager.autoLogin.user = "jak";
 
   # sound
   sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
+  services.pipewire.enable = true;
+  services.pipewire.alsa.enable = true;
+  services.pipewire.alsa.support32Bit = true;
+  services.pipewire.pulse.enable = true;
 
   # other
   services.printing.enable = true;
-  virtualisation.podman.enable = true; # used for distrobox
   programs.steam.enable = true; # steam needs special FHS stuff, so has to be enabled outside home-manager
   hardware.opengl.driSupport32Bit = true; # Enables support for 32bit libs that steam uses
   programs.nix-ld.enable = true; # run unpatched binaries
 
   # user
-  users.users.jak = {
-    isNormalUser = true;
-    description = "jak";
-    extraGroups = [ "networkmanager" "wheel" ];
-  };
+  users.users.jak.isNormalUser = true;
+  users.users.jak.extraGroups = [ "networkmanager" "wheel" ];
+  home-manager.users.jak = {  # home-manager is used for user-level configuration, e.g. dotfiles
+    imports = [
+      ./dot/desktop_entries.nix # app launcher shortcuts
+      ./dot/gnome.nix # gnome desktop settings
+    ];
 
-  # home-manager is used for user-level configuration, e.g. dotfiles
-  home-manager = {
-    users.jak = {
-      home = {
-        username = "jak";
-        homeDirectory = "/home/jak";
-        stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-        file."wallpaper".source = ./dot/wallpaper;
-      };
-      
-      imports = [
-        ./dot/desktop_entries.nix # app launcher shortcuts
-        ./dot/gnome.nix # gnome desktop settings
-      ];
+    home.username = "jak";
+    home.stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
+    home.file."wallpaper".source = ./dot/wallpaper;
+    home.packages = with pkgs; [
+      ripgrep
+      ripgrep-all
+      jq
+      poppler
+      fzf
+      unar
+      ffmpeg
+      ffmpegthumbnailer
+      fd
+      gitui
+      mpv
+      firefox
+      google-chrome
+      bacon
+      tokei
+      gallery-dl
+      gh
+      sd
+      ouch
+      just
+      deluge
+      discord
+      krita
+      zotero
+      deluge
+      watchexec
+      libreoffice
+      wl-clipboard
+      element-desktop
+      difftastic
+    ];
 
-      # installed programs
-      home.packages = with pkgs; [
-        ripgrep
-        ripgrep-all
-        jq
-        poppler
-        fzf
-        unar
-        ffmpeg
-        ffmpegthumbnailer
-        fd
-        gitui
-        mpv
-        firefox
-        google-chrome
-        marksman
-        bacon
-        tokei
-        gallery-dl
-        gh
-        sd
-        ouch
-        just
-        deluge
-        discord
-        krita
-        zotero
-        deluge
-        watchexec
-        libreoffice
-        wl-clipboard
-        distrobox
-        element-desktop
-        powertop
-        bottom
-        csview
-        zathura
-        difftastic
-      ];
+    programs = {
+      git.enable = true;
+      git.extraConfig.user.name = "jakkos-net";
+      git.extraConfig.user.email = "45759112+jakkos-net@users.noreply.github.com";
 
-      # installed programs that have extra config          
-      programs.git = {
-        enable = true;
-        extraConfig = {
-          user.name = "jakkos-net";
-          user.email = "45759112+jakkos-net@users.noreply.github.com";
-        };
-      };
+      helix.enable = true;
+      helix.settings = builtins.fromTOML (builtins.readFile ./dot/helix.toml);
+      helix.themes = { dracula_transparent = { inherits = "dracula"; "ui.background" = {}; }; };
 
-      programs.helix = {
-        enable = true;
-        settings = builtins.fromTOML (builtins.readFile ./dot/helix.toml);
-        themes = { dracula_transparent = { inherits = "dracula"; "ui.background" = {}; }; };
-      };
+      wezterm.enable = true;
+      wezterm.extraConfig = builtins.readFile ./dot/wezterm.lua;
 
-      programs.wezterm = {
-        enable = true;
-        extraConfig = builtins.readFile ./dot/wezterm.lua;
-      };
+      nushell.enable = true;
+      nushell.configFile.text = builtins.readFile ./dot/config.nu;
+      nushell.envFile.text = builtins.readFile ./dot/env.nu;
 
-      programs.nushell = {
-        enable = true;
-        configFile.text = builtins.readFile ./dot/config.nu;
-        envFile.text = builtins.readFile ./dot/env.nu;
-      };
+      yazi.enable = true;
+      yazi.enableNushellIntegration = true;
 
-      programs.yazi = {
-        enable = true;
-        enableNushellIntegration = true;
-      };
+      direnv.enable = true;
+      direnv.enableNushellIntegration = true;
+      direnv.nix-direnv.enable = true; # more performant implementation
 
-      programs.direnv = {
-        enable = true;
-        enableNushellIntegration = true;
-        nix-direnv.enable = true; # more performant implementation
-      };
+      zoxide.enable = true;
+      zoxide.enableNushellIntegration = true;
 
-      programs.zoxide = {
-        enable = true;
-        enableNushellIntegration = true;
-      };
-
-      programs.tealdeer = {
-        enable = true;
-        settings.updates.auto_update = true;
-      };
+      tealdeer.enable = true;
+      tealdeer.settings.updates.auto_update = true;
     };
   };
 }

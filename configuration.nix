@@ -117,6 +117,7 @@
         bottom
         csview
         zathura
+        difftastic
       ];
 
       # installed programs that have extra config          

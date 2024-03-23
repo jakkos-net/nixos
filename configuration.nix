@@ -1,6 +1,4 @@
 {pkgs, ...}: {
-  imports = [ ./hardware-configuration.nix ]; #auto-generated depending on hardware (`nixos-generate-config`)
-
   # nix
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = "nix-command flakes";
@@ -52,11 +50,6 @@
   users.users.jak.isNormalUser = true;
   users.users.jak.extraGroups = [ "networkmanager" "wheel" ];
   home-manager.users.jak = {  # home-manager is used for user-level configuration, e.g. dotfiles
-    imports = [
-      ./dot/desktop_entries.nix # app launcher shortcuts
-      ./dot/gnome.nix # gnome desktop settings
-    ];
-
     home.username = "jak";
     home.stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
     home.file."wallpaper".source = ./dot/wallpaper;
@@ -90,10 +83,9 @@
       libreoffice
       wl-clipboard
       element-desktop
-      difftastic
     ];
 
-    programs = {
+    programs = { # programs with extra config
       git.enable = true;
       git.extraConfig.user.name = "jakkos-net";
       git.extraConfig.user.email = "45759112+jakkos-net@users.noreply.github.com";
@@ -121,6 +113,15 @@
 
       tealdeer.enable = true;
       tealdeer.settings.updates.auto_update = true;
+    };
+
+    dconf.settings = import ./dot/gnome.nix; # gnome settings
+
+    xdg.desktopEntries = { # app launcher shortcuts
+      ff = {name="ff"; exec="firefox --new-window";};
+      mu = {name="mu"; exec="firefox --new-window https://music.youtube.com";};
+      wa = {name="wa"; exec="firefox --new-window https://web.whatsapp.com";};
+      fp = {name="fp"; exec="firefox --private-window";};
     };
   };
 }

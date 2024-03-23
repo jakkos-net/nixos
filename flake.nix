@@ -8,7 +8,8 @@
     nixosConfigurations = {
       machine = nixpkgs.lib.nixosSystem {
         modules = [
-          ./configuration.nix
+          ./configuration.nix # main config
+          ./hardware-configuration.nix # auto-generated depending on hardware (`nixos-generate-config`)
           home-manager.nixosModules.home-manager
         ];
       };

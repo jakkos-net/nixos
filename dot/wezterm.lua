@@ -1,5 +1,6 @@
 local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
+local act = wezterm.action
 
 config.hide_mouse_cursor_when_typing = false
 config.window_decorations = "RESIZE"
@@ -7,17 +8,8 @@ config.default_prog = { 'nu' }
 config.use_fancy_tab_bar = false
 config.hide_tab_bar_if_only_one_tab = true
 config.color_scheme = 'Dracula'
-config.colors = {
-  tab_bar = {
-    background = '#000000'
-  }
-}
+config.colors = { tab_bar = { background = '#000000'} }
 config.window_background_image = wezterm.home_dir .. "/wallpaper"
-config.window_background_image_hsb = {
-  brightness = 0.25
-}
-
-local act = wezterm.action
 config.keys = {
   {key = 'q', mods = 'ALT', action = act.ActivatePaneByIndex(0)},
   {key = 'w', mods = 'ALT', action = act.ActivatePaneByIndex(1)},
@@ -59,15 +51,15 @@ wezterm.on('rust-layout', function(window, pane)
     args = {"nu", "-e", "gitui"},
     size = 0.5
   }
-  window:perform_action(wezterm.action{SendString = "hx"}, pane)
-  window:perform_action(wezterm.action{SendKey={key="Enter", mods="NONE"}}, pane)
+  window:perform_action(act{SendString = "hx"}, pane)
+  window:perform_action(act{SendKey={key="Enter"}}, pane)
   pane:activate()
 end)
 
 wezterm.on('run-just-in-pane-3', function(window, _)
   local pane = window:active_tab():panes()[4]
-  window:perform_action(wezterm.action{SendString = "just"}, pane)
-  window:perform_action(wezterm.action{SendKey={key="Enter", mods="NONE"}}, pane)
+  window:perform_action(act{SendString = "just"}, pane)
+  window:perform_action(act{SendKey={key="Enter"}}, pane)
 end)
 
 return config

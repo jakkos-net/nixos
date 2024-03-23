@@ -20,6 +20,7 @@
           }
           nixos-cosmic.nixosModules.default
           ./configuration.nix
+          ./hardware-configuration.nix # auto-generated depending on hardware (`nixos-generate-config`)
           home-manager.nixosModules.home-manager
         ];
       };

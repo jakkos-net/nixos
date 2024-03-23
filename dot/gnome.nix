@@ -1,7 +1,5 @@
 {
-  "org/gnome/desktop/sound" = {
-    allow-volume-above-100-percent = true;
-  };
+  "org/gnome/desktop/sound" = { allow-volume-above-100-percent = true; };
 
   "org/gnome/desktop/interface" = {
     show-battery-percentage = true;
@@ -18,18 +16,14 @@
 
   "org/gnome/shell" = {
     favorite-apps = [];
-    disabled-extensions = [];
     enabled-extensions = ["launch-new-instance@gnome-shell-extensions.gcampax.github.com"];
   };
 
-  "org/gnome/shell/window-switcher" = {
-    current-workspace-only = true;
-  };
+  "org/gnome/shell/window-switcher" = { current-workspace-only = true; };
 
   "org/gnome/desktop/wm/keybindings" = {
     switch-windows = ["<Alt>Tab"];
     close = ["<Super>Backspace"];
-
     switch-to-workspace-1 = ["<Super>q"];
     move-to-workspace-1 = ["<Super><Shift>q"];
     switch-to-workspace-2 = ["<Super>w"];
@@ -56,18 +50,12 @@
     move-to-workspace-12 = ["<Super><Shift>v"];
   };
 
-  "org/gnome/desktop/wm/preferences" = {
-    num-workspaces = 12;
-  };
+  "org/gnome/desktop/wm/preferences" = { num-workspaces = 12; };
 
-  "org/gnome/desktop/input-sources" = {
-    xkb-options = ["caps:escape_shifted_capslock"];
-  };
+  "org/gnome/desktop/input-sources" = { xkb-options = ["caps:escape_shifted_capslock"]; };
 
   "org/gnome/settings-daemon/plugins/media-keys" = {
-    custom-keybindings = [
-      "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
-    ];
+    custom-keybindings = [ "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/" ];
   };
   "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
     binding = "<Super>Return";

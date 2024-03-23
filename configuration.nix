@@ -67,7 +67,6 @@
       mpv
       firefox
       google-chrome
-      bacon
       tokei
       gallery-dl
       gh

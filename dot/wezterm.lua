@@ -9,6 +9,8 @@ config.use_fancy_tab_bar = false
 config.hide_tab_bar_if_only_one_tab = true
 config.color_scheme = 'Dracula'
 config.colors = { tab_bar = { background = '#000000'} }
+config.font = wezterm.font 'JetBrains Mono'
+config.font_size = 17
 config.window_background_image = wezterm.home_dir .. "/wallpaper"
 config.keys = {
   {key = 'q', mods = 'ALT', action = act.ActivatePaneByIndex(0)},

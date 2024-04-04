@@ -91,7 +91,11 @@
 
       helix.enable = true;
       helix.settings = builtins.fromTOML (builtins.readFile ./dot/helix.toml);
-      helix.themes = { dracula_transparent = { inherits = "dracula"; "ui.background" = {}; }; };
+      helix.themes = { my_theme = { 
+        inherits = "dracula"; 
+        "ui.background" = {}; 
+        "ui.virtual.jump-label" = { fg = "red"; modifiers = ["bold"]; };
+      };};
 
       wezterm.enable = true;
       wezterm.extraConfig = builtins.readFile ./dot/wezterm.lua;

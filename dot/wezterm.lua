@@ -11,7 +11,7 @@ config.color_scheme = 'Dracula'
 config.colors = { tab_bar = { background = '#000000'} }
 config.inactive_pane_hsb = { brightness = 0.5 }
 config.font = wezterm.font 'JetBrains Mono'
-config.font_size = 17
+config.font_size = 14
 config.window_background_image = wezterm.home_dir .. "/wallpaper"
 config.keys = {
   {key = 'q', mods = 'ALT', action = act.ActivatePaneByIndex(0)},

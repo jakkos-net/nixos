@@ -82,6 +82,7 @@
       libreoffice
       wl-clipboard
       element-desktop
+      obs-studio
     ];
 
     programs = { # programs with extra config

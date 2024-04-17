@@ -45,6 +45,7 @@
   programs.steam.enable = true; # steam needs special FHS stuff, so has to be enabled outside home-manager
   hardware.opengl.driSupport32Bit = true; # Enables support for 32bit libs that steam uses
   programs.nix-ld.enable = true; # run unpatched binaries
+  virtualisation.podman.enable = true; # used for distrobox
 
   # user
   users.users.jak.isNormalUser = true;
@@ -83,6 +84,7 @@
       wl-clipboard
       element-desktop
       obs-studio
+      distrobox
     ];
 
     programs = { # programs with extra config

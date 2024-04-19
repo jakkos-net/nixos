@@ -1,0 +1,131 @@
+set $mod Mod4
+set $term wezterm
+exec mako
+exec swayosd-server
+default_border pixel 2
+set $left h
+set $down j
+set $up k
+set $right l
+input "type:keyboard" {
+	xkb_layout gb
+	xkb_options caps:escape
+}
+
+input type:touchpad {
+    click_method clickfinger
+	natural_scroll enabled
+}
+
+output eDP-1 scale 1
+#include ~/nixos/dotfiles/.config/sway/displays
+#output DP-1 res 3840x2160@60hz scale 2
+
+set $menu bemenu-run --single-instance --tf "#000000" --hf "#ffffff" --prompt "" --fn "monospace 16"
+bindsym --release Super_L exec $menu
+
+bindsym $mod+Control+$right move workspace to output right 
+bindsym $mod+Control+$left move workspace to output left 
+bindsym $mod+Control+$down move workspace to output down 
+bindsym $mod+Control+$up move workspace to output up 
+
+bindsym $mod+p exec sh -c 'mkdir ~/screenshots; IMG=~/screenshots/$(date +%Y-%m-%d_%H-%m-%s).png && grim -g "$(slurp)" -t png $IMG && wl-copy < $IMG'
+
+output * background /home/jak/wallpaper fill
+
+bindsym $mod+Return exec $term
+
+bindsym $mod+backspace kill
+
+set $workroom f
+set $workspace 1
+workspace $$workroom$ws1
+
+set $ws1 1
+set $ws2 2
+set $ws3 3
+set $ws4 4
+set $ws5 5
+set $ws6 6
+set $ws7 7
+set $ws8 8
+set $ws9 9
+
+bindsym $mod+1 workspace $$workroom$ws1; set $$workspace $ws1
+bindsym $mod+2 workspace $$workroom$ws2; set $$workspace $ws2
+bindsym $mod+3 workspace $$workroom$ws3; set $$workspace $ws3
+bindsym $mod+4 workspace $$workroom$ws4; set $$workspace $ws4
+bindsym $mod+5 workspace $$workroom$ws5; set $$workspace $ws5
+bindsym $mod+6 workspace $$workroom$ws6; set $$workspace $ws6
+bindsym $mod+7 workspace $$workroom$ws7; set $$workspace $ws7
+bindsym $mod+8 workspace $$workroom$ws8; set $$workspace $ws8
+bindsym $mod+9 workspace $$workroom$ws9; set $$workspace $ws9
+
+bindsym $mod+q set $$workroom q; workspace $$workroom$$workspace
+bindsym $mod+w set $$workroom w; workspace $$workroom$$workspace
+bindsym $mod+e set $$workroom e; workspace $$workroom$$workspace
+bindsym $mod+r set $$workroom r; workspace $$workroom$$workspace
+bindsym $mod+a set $$workroom a; workspace $$workroom$$workspace
+bindsym $mod+s set $$workroom s; workspace $$workroom$$workspace
+bindsym $mod+d set $$workroom d; workspace $$workroom$$workspace
+bindsym $mod+f set $$workroom f; workspace $$workroom$$workspace
+bindsym $mod+z set $$workroom z; workspace $$workroom$$workspace
+bindsym $mod+x set $$workroom x; workspace $$workroom$$workspace
+bindsym $mod+c set $$workroom c; workspace $$workroom$$workspace
+
+bindsym $mod+Shift+Ctrl+$left resize shrink width 10px
+bindsym $mod+Shift+Ctrl+$up resize grow height 10px
+bindsym $mod+Shift+Ctrl+$down resize shrink height 10px
+bindsym $mod+Shift+Ctrl+$right resize grow width 10px
+	
+bindsym XF86MonBrightnessUp exec swayosd-client --brightness raise 
+bindsym XF86MonBrightnessDown exec swayosd-client --brightness lower
+
+bindsym XF86AudioRaiseVolume exec swayosd-client --output-volume raise 
+bindsym XF86AudioLowerVolume exec swayosd-client --output-volume lower 
+
+bindsym $mod+v splitv
+bindsym $mod+u splith
+
+bindsym $mod+i focus child
+bindsym $mod+o focus parent
+
+bindsym $mod+m fullscreen
+
+mouse_warping output
+focus_follows_mouse no
+focus_wrapping workspace
+
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
+bindsym $mod+Ctrl+r reload
+
+bar {
+    position top
+    status_command i3status-rs config-default.toml
+	font pango:monospace 12
+	colors {
+		background #000000bb
+		inactive_workspace #000000bb #000000bb #ffffff
+		active_workspace #000000bb #000000bb #ffffff
+		focused_workspace #000000bb #666666bb #ffffff
+	}
+	tray_output none
+}
+
+client.focused          #000000bb #666666bb #ffffff #ff0000bb #ffffffbb
+client.focused_inactive #000000bb #666666bb #ffffff #ff0000bb #00000000
+client.unfocused        #000000bb #000000bb #ffffff #ff0000bb #00000000
+client.focused_tab_title #000000bb #000000bb #ffffff #ff0000bb #00000000	
+
+smart_gaps on
+smart_borders on
+hide_edge_borders smart

@@ -25,11 +25,13 @@
   console.keyMap = "uk";  
 
   # desktop environment
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
   services.xserver.enable = true;
-  services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = "jak";
+  services.greetd.enable = true;
+  services.greetd.settings = rec {
+    initial_session.command = "${pkgs.sway}/bin/sway";
+    initial_session.user = "jak";
+    default_session = initial_session;
+  };
 
   # sound
   sound.enable = true;
@@ -46,7 +48,7 @@
   hardware.opengl.driSupport32Bit = true; # Enables support for 32bit libs that steam uses
   programs.nix-ld.enable = true; # run unpatched binaries
   virtualisation.podman.enable = true; # used for distrobox
-
+  security.pam.services.swaylock = {};
   # user
   users.users.jak.isNormalUser = true;
   users.users.jak.extraGroups = [ "networkmanager" "wheel" ];
@@ -85,8 +87,18 @@
       element-desktop
       obs-studio
       distrobox
+      grim
+      slurp
+      mako
+      bemenu
+      swaylock-effects
+      okular
     ];
 
+    wayland.windowManager.sway.enable = true;
+    wayland.windowManager.sway.extraConfig = builtins.readFile ./dot/sway;
+    wayland.windowManager.sway.config.bars = [];
+    services.swayosd.enable = true;
     programs = { # programs with extra config
       git.enable = true;
       git.extraConfig.user.name = "jakkos-net";
@@ -119,9 +131,39 @@
 
       tealdeer.enable = true;
       tealdeer.settings.updates.auto_update = true;
-    };
 
-    dconf.settings = import ./dot/gnome.nix; # gnome settings
+      i3status-rust.enable = true;
+      i3status-rust.bars.default.blocks = [
+        {
+          block = "net";
+          format = "net:$ssid $signal_strength";
+        }
+        {
+          block = "disk_space";
+          path = "/";
+          info_type = "available";
+          interval = 60;
+          format = "dsk:$available.eng(w:2)";
+        }
+        {
+          block = "battery";
+          charging_format = "pow:↑$percentage";
+          format = "pow:↓$percentage";
+          full_format = "pow:=$percentage";
+          not_charging_format = "pow:↓$percentage";
+          missing_format = "pow:?$percentage";
+        }            
+        {
+          block = "sound";
+          format = "vol:$volume.eng(w:2)";
+        }
+        {
+          block = "time";
+          format = "$timestamp.datetime(f:'%a %Y/%m/%d %R')";
+          interval = 60;
+        }
+      ];
+    };
 
     xdg.desktopEntries = { # app launcher shortcuts
       ff = {name="ff"; exec="firefox --new-window";};

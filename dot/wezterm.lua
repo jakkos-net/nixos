@@ -9,6 +9,9 @@ config.use_fancy_tab_bar = false
 config.hide_tab_bar_if_only_one_tab = true
 config.color_scheme = 'Dracula'
 config.colors = { tab_bar = { background = '#000000'} }
+config.inactive_pane_hsb = { brightness = 0.5 }
+config.font = wezterm.font 'JetBrains Mono'
+config.font_size = 14
 config.window_background_image = wezterm.home_dir .. "/wallpaper"
 config.keys = {
   {key = 'q', mods = 'ALT', action = act.ActivatePaneByIndex(0)},
@@ -26,6 +29,7 @@ config.keys = {
   {key = 'RightArrow', mods = 'ALT|SHIFT', action = act.MoveTabRelative(1)},
   {key = '#', mods = 'ALT', action = act.EmitEvent 'rust-layout'},
   {key = 'j', mods = 'ALT', action = act.EmitEvent 'run-just-in-pane-3'},
+  {key = 'c', mods = 'ALT', action = act.EmitEvent 'ctrl-c-in-pane-3'}
 }
 for i = 1, 9 do
   table.insert(config.keys, {key = tostring(i), mods = 'ALT', action = act.ActivateTab(i - 1)})
@@ -59,6 +63,12 @@ end)
 wezterm.on('run-just-in-pane-3', function(window, _)
   local pane = window:active_tab():panes()[4]
   window:perform_action(act{SendString = "just"}, pane)
+  window:perform_action(act{SendKey={key="Enter"}}, pane)
+end)
+
+wezterm.on('ctrl-c-in-pane-3', function(window, _)
+  local pane = window:active_tab():panes()[4]
+  window:perform_action(act{SendKey = {key="c", mods="CTRL"}}, pane)
   window:perform_action(act{SendKey={key="Enter"}}, pane)
 end)
 

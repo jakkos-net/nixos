@@ -30,8 +30,8 @@
   # services.xserver.displayManager.cosmic-greeter.enable = true;
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "jak";
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "jak";
 
   # sound
   sound.enable = true;
@@ -47,6 +47,7 @@
   programs.steam.enable = true; # steam needs special FHS stuff, so has to be enabled outside home-manager
   hardware.opengl.driSupport32Bit = true; # Enables support for 32bit libs that steam uses
   programs.nix-ld.enable = true; # run unpatched binaries
+  virtualisation.podman.enable = true; # used for distrobox
 
   # user
   users.users.jak.isNormalUser = true;
@@ -69,7 +70,6 @@
       mpv
       firefox
       google-chrome
-      bacon
       tokei
       gallery-dl
       gh
@@ -85,6 +85,8 @@
       libreoffice
       wl-clipboard
       element-desktop
+      obs-studio
+      distrobox
     ];
 
     programs = { # programs with extra config
@@ -94,7 +96,11 @@
 
       helix.enable = true;
       helix.settings = builtins.fromTOML (builtins.readFile ./dot/helix.toml);
-      helix.themes = { dracula_transparent = { inherits = "dracula"; "ui.background" = {}; }; };
+      helix.themes = { my_theme = { 
+        inherits = "dracula"; 
+        "ui.background" = {}; 
+        "ui.virtual.jump-label" = { fg = "red"; modifiers = ["bold"]; };
+      };};
 
       wezterm.enable = true;
       wezterm.extraConfig = builtins.readFile ./dot/wezterm.lua;

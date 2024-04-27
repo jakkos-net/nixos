@@ -48,6 +48,7 @@
   hardware.opengl.driSupport32Bit = true; # Enables support for 32bit libs that steam uses
   programs.nix-ld.enable = true; # run unpatched binaries
   virtualisation.podman.enable = true; # used for distrobox
+  services.fwupd.enable = true; # firmware updates
 
   # user
   users.users.jak.isNormalUser = true;

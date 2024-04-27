@@ -3,6 +3,8 @@
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = "nix-command flakes";
   nix.settings.auto-optimise-store = true;
+  nix.gc.automatic = true;
+  nix.gc.options = "--delete-older-than 10d";
   system.stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
 
   # boot

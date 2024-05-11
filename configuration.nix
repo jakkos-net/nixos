@@ -28,8 +28,8 @@
 
   # desktop environment
   services.xserver.enable = true;
-  # services.xserver.desktopManager.cosmic.enable = true;
-  # services.xserver.displayManager.cosmic-greeter.enable = true;
+  # services.desktopManager.cosmic.enable = true;
+  # services.displayManager.cosmic-greeter.enable = true;
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
   services.displayManager.autoLogin.enable = true;

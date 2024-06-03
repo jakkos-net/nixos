@@ -49,6 +49,8 @@
   programs.nix-ld.enable = true; # run unpatched binaries
   virtualisation.podman.enable = true; # used for distrobox
   services.fwupd.enable = true; # firmware updates
+  programs.nix-index-database.comma.enable = true; # allow quickly running programs without installing them 
+  programs.command-not-found.enable = false; # needed for above, otherwise they conflict
 
   # user
   users.users.jak.isNormalUser = true;

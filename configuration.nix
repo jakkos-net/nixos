@@ -74,7 +74,6 @@
       firefox
       google-chrome
       tokei
-      gallery-dl
       gh
       sd
       ouch

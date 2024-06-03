@@ -1,17 +1,17 @@
 {pkgs, ...}: {
   # nix
-  nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = "nix-command flakes";
+  nixpkgs.config.allowUnfree = true; # allow stuff non-open-source stuff like discord
+  nix.settings.experimental-features = "nix-command flakes"; # enable flakes
   nix.settings.auto-optimise-store = true;
   nix.gc.automatic = true;
-  nix.gc.options = "--delete-older-than 10d";
+  nix.gc.options = "--delete-older-than 10d"; # clean up nix files that haven't been used in 10 days
   system.stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
 
   # boot
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.luks.devices."luks-a77d21c1-0d1e-41ba-915b-9d6377bf16ac".device = "/dev/disk/by-uuid/a77d21c1-0d1e-41ba-915b-9d6377bf16ac";
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest; # use the latest kernel
   boot.kernelParams = ["amdgpu.sg_display=0"]; # currently a bug with some AMD iGPUs and white screen flickering
 
   # networking
@@ -26,7 +26,7 @@
   services.xserver.xkb.layout = "gb";
   console.keyMap = "uk";  
 
-  # desktop environment
+  # desktop environment (gnome)
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
   services.xserver.enable = true;
@@ -49,7 +49,7 @@
   programs.nix-ld.enable = true; # run unpatched binaries
   virtualisation.podman.enable = true; # used for distrobox
   services.fwupd.enable = true; # firmware updates
-  programs.nix-index-database.comma.enable = true; # allow quickly running programs without installing them 
+  programs.nix-index-database.comma.enable = true; # allow quickly running programs without installing them (e.g. `, cowsay hello`)
   programs.command-not-found.enable = false; # needed for above, otherwise they conflict
 
   # user
@@ -59,26 +59,22 @@
     home.username = "jak";
     home.stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
     home.file."wallpaper".source = ./dot/wallpaper;
-    home.packages = with pkgs; [
+    home.packages = with pkgs; [ # programs with no extra config
       ripgrep
-      ripgrep-all
-      jq
+      ripgrep-all # install rg and rga because rga lets you search more but some other programs use rg
       poppler
       fzf
       unar
       ffmpeg
-      ffmpegthumbnailer
+      ffmpegthumbnailer # used for file previews in some programs
       fd
       gitui
-      mpv
+      mpv # video player
       firefox
-      google-chrome
-      tokei
+      google-chrome # some websites don't like firefox
       gh
       sd
       ouch
-      just
-      deluge
       discord
       krita
       zotero
@@ -88,7 +84,7 @@
       wl-clipboard
       element-desktop
       obs-studio
-      distrobox
+      distrobox # last resort if I can't get something to work on NixOS
     ];
 
     programs = { # programs with extra config
@@ -111,14 +107,14 @@
       nushell.configFile.text = builtins.readFile ./dot/config.nu;
       nushell.envFile.text = builtins.readFile ./dot/env.nu;
 
-      yazi.enable = true;
+      yazi.enable = true; # terminal file manager
       yazi.enableNushellIntegration = true;
 
-      direnv.enable = true;
+      direnv.enable = true; # change environment when entering certain directories
       direnv.enableNushellIntegration = true;
       direnv.nix-direnv.enable = true; # more performant implementation
 
-      zoxide.enable = true;
+      zoxide.enable = true; # replaces `cd` with smarter `z` command
       zoxide.enableNushellIntegration = true;
 
       tealdeer.enable = true;

@@ -12,8 +12,8 @@
         modules = [
           ./configuration.nix # main config
           ./hardware-configuration.nix # auto-generated depending on hardware (`nixos-generate-config`)
-          home-manager.nixosModules.home-manager
-          nix-index-database.nixosModules.nix-index
+          home-manager.nixosModules.home-manager # homemanager is very useful for user-level config (e.g. dotfiles)
+          nix-index-database.nixosModules.nix-index # database of which packages contain which programs/files
         ];
       };
     };

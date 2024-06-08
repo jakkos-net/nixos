@@ -6,7 +6,7 @@
     nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
     nixos-cosmic.inputs.nixpkgs.follows = "nixpkgs";
     nix-index-database.url = "github:nix-community/nix-index-database";
-    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";  
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = {nixpkgs, home-manager, nix-index-database, nixos-cosmic, ...}: {
     nixosConfigurations = {

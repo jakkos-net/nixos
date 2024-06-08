@@ -45,11 +45,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1715380449,
-        "narHash": "sha256-716+f9Rj3wjSyD1xitCv2FcYbgPz1WIVDj+ZBclH99Y=",
+        "lastModified": 1717525419,
+        "narHash": "sha256-5z2422pzWnPXHgq2ms8lcCfttM0dz+hg+x1pCcNkAws=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "d7682620185f213df384c363288093b486b2883f",
+        "rev": "a7117efb3725e6197dd95424136f79147aa35e5b",
         "type": "github"
       },
       "original": {
@@ -58,6 +58,7 @@
         "type": "github"
       }
     },
+<<<<<<< HEAD
     "nix-update": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -86,11 +87,16 @@
       "inputs": {
         "flake-compat": "flake-compat",
         "nix-update": "nix-update",
+=======
+    "nix-index-database": {
+      "inputs": {
+>>>>>>> master
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
+<<<<<<< HEAD
         "lastModified": 1709730195,
         "narHash": "sha256-MRepIujX2D80OFYuU0EuQlJZI//jXBo0aGxv0GDUYew=",
         "owner": "lilyinstarlight",
@@ -101,16 +107,28 @@
       "original": {
         "owner": "lilyinstarlight",
         "repo": "nixos-cosmic",
+=======
+        "lastModified": 1717744769,
+        "narHash": "sha256-1usk5faO+KRn/03xKW3G3ex9/wHeLfwKTa7x8QNcygc=",
+        "owner": "nix-community",
+        "repo": "nix-index-database",
+        "rev": "4ac3639cebb6286f1a68d015b80e9e0c6c869ce6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nix-index-database",
+>>>>>>> master
         "type": "github"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1715266358,
-        "narHash": "sha256-doPgfj+7FFe9rfzWo1siAV2mVCasW+Bh8I1cToAXEE4=",
+        "lastModified": 1717602782,
+        "narHash": "sha256-pL9jeus5QpX5R+9rsp3hhZ+uplVHscNJh8n8VpqscM0=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "f1010e0469db743d14519a1efd37e23f8513d714",
+        "rev": "e8057b67ebf307f01bdcc8fba94d94f75039d1f6",
         "type": "github"
       },
       "original": {
@@ -123,7 +141,11 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+<<<<<<< HEAD
         "nixos-cosmic": "nixos-cosmic",
+=======
+        "nix-index-database": "nix-index-database",
+>>>>>>> master
         "nixpkgs": "nixpkgs"
       }
     },

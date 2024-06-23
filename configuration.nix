@@ -45,7 +45,7 @@
   # other
   services.printing.enable = true;
   programs.steam.enable = true; # steam needs special FHS stuff, so has to be enabled outside home-manager
-  hardware.opengl.driSupport32Bit = true; # Enables support for 32bit libs that steam uses
+  hardware.graphics.driSupport32Bit = true; # Enables support for 32bit libs that steam games use
   programs.nix-ld.enable = true; # run unpatched binaries
   virtualisation.podman.enable = true; # used for distrobox
   services.fwupd.enable = true; # firmware updates

@@ -45,7 +45,6 @@
   # other
   services.printing.enable = true;
   programs.steam.enable = true; # steam needs special FHS stuff, so has to be enabled outside home-manager
-  hardware.graphics.driSupport32Bit = true; # Enables support for 32bit libs that steam games use
   programs.nix-ld.enable = true; # run unpatched binaries
   virtualisation.podman.enable = true; # used for distrobox
   services.fwupd.enable = true; # firmware updates
@@ -72,18 +71,18 @@
       mpv # video player
       firefox
       google-chrome # some websites don't like firefox
-      gh
+      gh # useful for creating github repos from local git repos
       sd
-      ouch
+      ouch # zip/unzip lots of different formats
       discord
-      krita
+      krita # paint
       zotero
-      deluge
-      watchexec
-      libreoffice
-      wl-clipboard
+      deluge # torrents
+      watchexec # runs commands on file changes
+      libreoffice # word/excel
+      wl-clipboard # needed so copy/paste works in some programs
       element-desktop
-      obs-studio
+      obs-studio # screen recording
       distrobox # last resort if I can't get something to work on NixOS
     ];
 
@@ -100,10 +99,10 @@
         "ui.virtual.jump-label" = { fg = "red"; modifiers = ["bold"]; };
       };};
 
-      wezterm.enable = true;
+      wezterm.enable = true; # best terminal emulator
       wezterm.extraConfig = builtins.readFile ./dot/wezterm.lua;
 
-      nushell.enable = true;
+      nushell.enable = true; # best shell
       nushell.configFile.text = builtins.readFile ./dot/config.nu;
       nushell.envFile.text = builtins.readFile ./dot/env.nu;
 
@@ -117,7 +116,7 @@
       zoxide.enable = true; # replaces `cd` with smarter `z` command
       zoxide.enableNushellIntegration = true;
 
-      tealdeer.enable = true;
+      tealdeer.enable = true; # show common use cases for commands
       tealdeer.settings.updates.auto_update = true;
     };
 

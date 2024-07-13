@@ -47,7 +47,6 @@
   # other
   services.printing.enable = true;
   programs.steam.enable = true; # steam needs special FHS stuff, so has to be enabled outside home-manager
-  hardware.opengl.driSupport32Bit = true; # Enables support for 32bit libs that steam uses
   programs.nix-ld.enable = true; # run unpatched binaries
   virtualisation.podman.enable = true; # used for distrobox
   services.fwupd.enable = true; # firmware updates
@@ -62,30 +61,27 @@
     home.stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
     home.file."wallpaper".source = ./dot/wallpaper;
     home.packages = with pkgs; [ # programs with no extra config
-      ripgrep
-      ripgrep-all # install rg and rga because rga lets you search more but some other programs use rg
-      poppler
-      fzf
-      unar
-      ffmpeg
-      ffmpegthumbnailer # used for file previews in some programs
-      fd
-      gitui
+      ripgrep # used by yazi
+      poppler # ..
+      fzf # ..
+      unar # ..
+      ffmpegthumbnailer # ..
+      fd # ..
+      gitui # terminal ui for git
       mpv # video player
-      firefox
+      firefox # best browser
       google-chrome # some websites don't like firefox
-      gh
-      sd
-      ouch
-      discord
-      krita
-      zotero
-      deluge
-      watchexec
-      libreoffice
-      wl-clipboard
-      element-desktop
-      obs-studio
+      gh # useful for creating github repos from local git repos
+      sd # used for find and replace
+      ouch # zip/unzip lots of different formats
+      discord # discord sucks but also discord very convenient
+      krita # paint
+      zotero # reference manager
+      deluge # torrents
+      watchexec # runs commands on file changes
+      libreoffice # word/excel
+      wl-clipboard # needed so copy/paste works in some programs
+      obs-studio # screen recording
       distrobox # last resort if I can't get something to work on NixOS
     ];
 
@@ -102,10 +98,10 @@
         "ui.virtual.jump-label" = { fg = "red"; modifiers = ["bold"]; };
       };};
 
-      wezterm.enable = true;
+      wezterm.enable = true; # best terminal emulator
       wezterm.extraConfig = builtins.readFile ./dot/wezterm.lua;
 
-      nushell.enable = true;
+      nushell.enable = true; # best shell
       nushell.configFile.text = builtins.readFile ./dot/config.nu;
       nushell.envFile.text = builtins.readFile ./dot/env.nu;
 
@@ -118,9 +114,6 @@
 
       zoxide.enable = true; # replaces `cd` with smarter `z` command
       zoxide.enableNushellIntegration = true;
-
-      tealdeer.enable = true;
-      tealdeer.settings.updates.auto_update = true;
     };
 
     dconf.settings = import ./dot/gnome.nix; # gnome settings

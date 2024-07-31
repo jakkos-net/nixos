@@ -30,8 +30,6 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
   services.xserver.enable = true;
-  services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = "jak";
 
   # sound
   hardware.pulseaudio.enable = false;
@@ -58,12 +56,6 @@
     home.stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
     home.file."wallpaper".source = ./dot/wallpaper;
     home.packages = with pkgs; [ # programs with no extra config
-      ripgrep # used by yazi
-      poppler # ..
-      fzf # ..
-      unar # ..
-      ffmpegthumbnailer # ..
-      fd # ..
       gitui # terminal ui for git
       mpv # video player
       firefox # best browser
@@ -71,15 +63,19 @@
       gh # useful for creating github repos from local git repos
       sd # used for find and replace
       ouch # zip/unzip lots of different formats
-      discord # discord sucks but also discord very convenient
       krita # paint
       zotero # reference manager
       deluge # torrents
       watchexec # runs commands on file changes
       libreoffice # word/excel
       wl-clipboard # needed so copy/paste works in some programs
-      obs-studio # screen recording
       distrobox # last resort if I can't get something to work on NixOS
+      ripgrep # used by yazi
+      poppler # ..
+      fzf # ..
+      unar # ..
+      ffmpegthumbnailer # ..
+      fd # ..
     ];
 
     programs = { # programs with extra config
@@ -118,7 +114,7 @@
     xdg.desktopEntries = { # app launcher shortcuts
       ff = {name="ff"; exec="firefox --new-window";};
       mu = {name="mu"; exec="firefox --new-window https://music.youtube.com";};
-      wa = {name="wa"; exec="firefox --new-window https://web.whatsapp.com";};
+      wa = {name="wa"; exec="firefox --url https://web.whatsapp.com --url https://app.element.io --url https://discord.com/channels/@me";};
       fp = {name="fp"; exec="firefox --private-window";};
     };
   };

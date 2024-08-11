@@ -7,12 +7,20 @@ config.window_decorations = "RESIZE"
 config.default_prog = { 'nu' }
 config.use_fancy_tab_bar = false
 config.hide_tab_bar_if_only_one_tab = true
-config.color_scheme = 'Dracula'
-config.colors = { tab_bar = { background = '#000000'} }
-config.inactive_pane_hsb = { brightness = 0.5 }
+config.colors = {  
+  ansi = {'#1f1e20','#c05862','#b1b695','#f5d76e','#ffa07a','#f6b6c9','#bfbfcf','#f5f5f5'},
+  background = '#2b292d',
+  brights = {'#6f5d63','#e06b75','#9f9f7c','#fff27a','#e88c6f','#ffb9cc','#d1d1e0','#ffffff'},
+  cursor_bg = '#fecdb2',
+  cursor_border = '#fecdb2',
+  cursor_fg = '#383539',
+  foreground = '#fecdb2',
+  selection_bg = '#4d424b',
+  selection_fg = '#fecdb2',
+  tab_bar = { background = '#2b292d' }
+}
 config.font = wezterm.font 'JetBrains Mono'
 config.font_size = 14
-config.window_background_image = wezterm.home_dir .. "/wallpaper"
 config.keys = {
   {key = 'q', mods = 'ALT', action = act.ActivatePaneByIndex(0)},
   {key = 'w', mods = 'ALT', action = act.ActivatePaneByIndex(1)},

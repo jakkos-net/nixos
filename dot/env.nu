@@ -4,7 +4,7 @@ $env.PROMPT_COMMAND = {||
         } else {
             $env.PWD
         }
-    $"(ansi green_bold)($dir)(git_branch)" | str replace --all (char path_sep) $"(ansi light_green_bold)(char path_sep)(ansi green_bold)"
+    $"(ansi blue_bold)($dir)(git_branch)" | str replace --all (char path_sep) $"(ansi light_blue_bold)(char path_sep)(ansi blue_bold)"
 }
 
 def git_branch [] {

@@ -28,8 +28,6 @@ config.keys = {
   {key = 'r', mods = 'ALT', action = act.ActivatePaneByIndex(3)},
   {key = 'Backspace', mods = 'ALT', action = act.CloseCurrentPane { confirm = false }},
   {key = 'Backspace', mods = 'ALT|SHIFT', action = act.CloseCurrentTab { confirm = false }},
-  {key = 'v', mods = 'ALT', action = act.SplitVertical { domain = 'CurrentPaneDomain' }},
-  {key = 'h', mods = 'ALT', action = act.SplitHorizontal { domain = 'CurrentPaneDomain' }},
   {key = 't', mods = 'ALT', action = act.SpawnTab 'DefaultDomain'},
   {key = 'LeftArrow', mods = 'ALT', action = act.ActivateTabRelative(-1)},
   {key = 'RightArrow', mods = 'ALT', action = act.ActivateTabRelative(1)},

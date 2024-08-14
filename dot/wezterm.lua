@@ -34,8 +34,8 @@ config.keys = {
   {key = 'LeftArrow', mods = 'ALT|SHIFT', action = act.MoveTabRelative(-1)},
   {key = 'RightArrow', mods = 'ALT|SHIFT', action = act.MoveTabRelative(1)},
   {key = '#', mods = 'ALT', action = act.EmitEvent 'rust-layout'},
-  {key = 'j', mods = 'ALT', action = act.EmitEvent 'run-just-in-pane-3'},
-  {key = 'c', mods = 'ALT', action = act.EmitEvent 'ctrl-c-in-pane-3'}
+  {key = 'j', mods = 'ALT', action = act.EmitEvent 'run-just-in-last-pane'},
+  {key = 'c', mods = 'ALT', action = act.EmitEvent 'ctrl-c-in-last-pane'}
 }
 for i = 1, 9 do
   table.insert(config.keys, {key = tostring(i), mods = 'ALT', action = act.ActivateTab(i - 1)})
@@ -66,14 +66,16 @@ wezterm.on('rust-layout', function(window, pane)
   pane:activate()
 end)
 
-wezterm.on('run-just-in-pane-3', function(window, _)
-  local pane = window:active_tab():panes()[4]
+wezterm.on('run-just-in-last-pane', function(window, _)
+  local panes = window:active_tab():panes()
+  local pane = panes[#panes]
   window:perform_action(act{SendString = "just"}, pane)
   window:perform_action(act{SendKey={key="Enter"}}, pane)
 end)
 
-wezterm.on('ctrl-c-in-pane-3', function(window, _)
-  local pane = window:active_tab():panes()[4]
+wezterm.on('ctrl-c-in-last-pane', function(window, _)
+  local panes = window:active_tab():panes()
+  local pane = panes[#panes]
   window:perform_action(act{SendKey = {key="c", mods="CTRL"}}, pane)
   window:perform_action(act{SendKey={key="Enter"}}, pane)
 end)

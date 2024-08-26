@@ -6,6 +6,7 @@ config.hide_mouse_cursor_when_typing = false
 config.window_decorations = "RESIZE"
 config.default_prog = { 'nu' }
 config.use_fancy_tab_bar = false
+config.front_end = "WebGpu" -- workaround for rendering bug
 config.hide_tab_bar_if_only_one_tab = true
 config.colors = {  
   ansi = {'#1f1e20','#c05862','#b1b695','#f5d76e','#ffa07a','#f6b6c9','#bfbfcf','#f5f5f5'},

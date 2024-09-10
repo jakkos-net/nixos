@@ -58,12 +58,10 @@
       mpv # video player
       firefox # best browser
       google-chrome # some websites don't like firefox
-      gh # useful for creating github repos from local git repos
       sd # used for find and replace
       ouch # zip/unzip lots of different formats
       krita # paint
       deluge # torrents
-      watchexec # runs commands on file changes
       libreoffice # word/excel
       wl-clipboard # needed so copy/paste works in some programs
       ripgrep # used by yazi

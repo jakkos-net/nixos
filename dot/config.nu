@@ -30,7 +30,7 @@ alias g = gitui
 alias up = sudo nixos-rebuild switch --flake "."
 alias fu = sudo nix flake update
 alias y = yazi
-alias gitdoc = , watchexec -d 30s "git stage -A; git commit -m 'auto-commit on file change'; git pull --rebase; git push"
+
 def findrep [from, to] { fd --type file --exec sd $from $to }
 def bg [cmd] { bash -c $"($cmd) &" }
 
@@ -39,3 +39,6 @@ def ghpush [new_repo_name] {
   , gh repo create $new_repo_name --private --source=. --remote=upstream
   git push --set-upstream upstream master
 }
+
+alias gitdoc = , watchexec -d 30s "git stage -A; git commit -m 'auto-commit on file change'; git pull --rebase; git push"
+alias rust_clean = , cargo-sweep sweep --recursive --time 7 ~/

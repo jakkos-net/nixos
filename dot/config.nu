@@ -30,7 +30,7 @@ def ghpush [new_repo_name] {
   , gh repo create $new_repo_name --private --source=. --remote=upstream
   git push --set-upstream upstream master
 }
-def dlvids [url] { , gallery-dl --filter "extension not in ('jpg', 'png', 'gif')" $url }
+def dlvids [url] { , gallery-dl --filter "extension not in ('jpg', 'jpeg', 'png', 'gif')" $url }
 
 alias zz = cd ./..
 alias h = hx

@@ -103,6 +103,7 @@
       ff = {name="ff"; exec="firefox --new-window";};
       mu = {name="mu"; exec="firefox --new-window https://music.youtube.com";};
       wa = {name="wa"; exec="firefox --url https://web.whatsapp.com --url https://discord.com/channels/@me --url https://app.element.io";};
+      re = {name="re"; exec="firefox --url https://reddit.com --url https://reddit.com/r/all --url https://news.ycombinator.com --url https://lobste.rs --url https://twitter.com";};
       fp = {name="fp"; exec="firefox --private-window";};
     };
   };

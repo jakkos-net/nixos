@@ -61,7 +61,7 @@
       sd # used for find and replace
       ouch # zip/unzip lots of different formats
       krita # paint
-      lorien # whiteboard 
+      obsidian
       deluge # torrents
       libreoffice # word/excel
       wl-clipboard # needed so copy/paste works in some programs

@@ -45,7 +45,7 @@
   programs.steam.enable = true; # steam needs special FHS stuff, so has to be enabled outside home-manager
   programs.nix-ld.enable = true; # run unpatched binaries
   services.fwupd.enable = true; # firmware updates
-  programs.nix-index-database.comma.enable = true; # allow quickly running programs without installing them, e.g. `, cowsay hello`
+  programs.nix-index-database.comma.enable = true; # allow quickly running programs without installing them (`, cowsay hello`)
   programs.command-not-found.enable = false; # needed for line above, otherwise they conflict
 
   # user
@@ -56,29 +56,18 @@
     home.stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
     home.file."wallpaper".source = ./dot/wallpaper; # link wallpaper file to homedir so other programs can easily access
     home.packages = with pkgs; [ # programs with no extra config
-      gitui # terminal ui for git
-      mpv # video player
-      firefox # best browser
-      google-chrome # some websites don't like firefox
-      sd # used for find and replace
-      ouch # zip/unzip lots of different formats
+      gitui sd ouch wl-clipboard ripgrep poppler fzf unar ffmpegthumbnailer fd # terminal tools
+      mpv vlc # video players
+      firefox google-chrome # browsers, <3 firefox but a few websites don't work ;(
       krita # paint
-      obsidian
       deluge # torrents
       libreoffice # word/excel
-      wl-clipboard # needed so copy/paste works in some programs
-      ripgrep # used by yazi
-      poppler # ..
-      fzf # ..
-      unar # ..
-      ffmpegthumbnailer # ..
-      fd # ..
     ]; # project-specific packages are added via devshells
 
     programs = { # programs with extra config
       git.enable = true;
       git.extraConfig.user.name = "jakkos-net";
-      git.extraConfig.user.email = "45759112+jakkos-net@users.noreply.github.com"; # makes sure github commits show as correct account
+      git.extraConfig.user.email = "45759112+jakkos-net@users.noreply.github.com"; # makes github commits show as correct account
 
       helix.enable = true; # text editor
       helix.settings = builtins.fromTOML (builtins.readFile ./dot/helix.toml);
@@ -106,7 +95,7 @@
       ff = {name="ff"; exec="firefox --new-window";};
       mu = {name="mu"; exec="firefox --new-window https://music.youtube.com";};
       wa = {name="wa"; exec="firefox --url https://web.whatsapp.com --url https://discord.com/channels/@me --url https://app.element.io";};
-      re = {name="re"; exec="firefox --url https://youtube.com --url https://reddit.com --url https://reddit.com/r/all --url https://news.ycombinator.com --url https://lobste.rs --url https://twitter.com";};
+      re = {name="re"; exec="firefox --url https://youtube.com --url https://reddit.com --url https://reddit.com/r/all --url https://news.ycombinator.com --url https://lobste.rs --url https://bsky.app";};
       fp = {name="fp"; exec="firefox --private-window";};
     };
   };

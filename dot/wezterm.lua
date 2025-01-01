@@ -35,6 +35,7 @@ config.keys = {
   {key = 'LeftArrow', mods = 'ALT|SHIFT', action = act.MoveTabRelative(-1)},
   {key = 'RightArrow', mods = 'ALT|SHIFT', action = act.MoveTabRelative(1)},
   {key = '#', mods = 'ALT', action = act.EmitEvent 'rust-layout'},
+  {key = 'f', mods = 'ALT', action = act.TogglePaneZoomState},
   {key = 'j', mods = 'ALT', action = act.EmitEvent 'run-just-in-last-pane'},
   {key = 'c', mods = 'ALT', action = act.EmitEvent 'ctrl-c-in-last-pane'}
 }

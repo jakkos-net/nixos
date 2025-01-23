@@ -89,6 +89,9 @@
 
       zoxide.enable = true; # replaces `cd` with smarter `z` command
       zoxide.enableNushellIntegration = true;
+
+      starship.enable = true;
+      starship.enableNushellIntegration = true;
     };
 
     dconf.settings = import ./dot/gnome.nix; # gnome settings

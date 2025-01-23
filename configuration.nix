@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs-stable, pkgs-unstable, ...}: {
   # nix
   nixpkgs.config.allowUnfree = true; # allow stuff non-open-source stuff like discord
   nix.settings.experimental-features = "nix-command flakes"; # enable flakes
@@ -13,7 +13,7 @@
   boot.initrd.luks.devices."luks-a77d21c1-0d1e-41ba-915b-9d6377bf16ac".device = "/dev/disk/by-uuid/a77d21c1-0d1e-41ba-915b-9d6377bf16ac";
   # https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/linux-kernels.nix
   # boot.kernelPackages = pkgs.linuxPackages_latest; # use the latest kernel
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6; # issues with amd drives on latest kernel
+  boot.kernelPackages = pkgs-stable.linuxKernel.packages.linux_6_6; # issues with amd drives on latest kernel
 
   # networking
   networking.networkmanager.enable = true;
@@ -55,8 +55,8 @@
     home.username = "jak";
     home.stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
     home.file."wallpaper".source = ./dot/wallpaper; # link wallpaper file to homedir so other programs can easily access
-    home.packages = with pkgs; [ # programs with no extra config
-      gitui sd ouch wl-clipboard ripgrep poppler fzf unar ffmpegthumbnailer fd just # terminal tools
+    home.packages = with pkgs-unstable; [ # programs with no extra config
+      gitui sd ouch wl-clipboard pkgs-stable.ripgrep poppler fzf unar ffmpegthumbnailer fd just # terminal tools
       mpv vlc # video players
       firefox google-chrome # browsers, <3 firefox but a few websites don't work ;(
       krita # paint

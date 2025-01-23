@@ -56,7 +56,7 @@
     home.stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
     home.file."wallpaper".source = ./dot/wallpaper; # link wallpaper file to homedir so other programs can easily access
     home.packages = with pkgs-unstable; [ # programs with no extra config
-      gitui sd ouch wl-clipboard pkgs-stable.ripgrep poppler fzf unar ffmpegthumbnailer fd just # terminal tools
+      gitui sd ouch wl-clipboard ripgrep poppler fzf unar ffmpegthumbnailer fd just diskonaut # term tools
       mpv vlc # video players
       firefox google-chrome # browsers, <3 firefox but a few websites don't work ;(
       krita # paint

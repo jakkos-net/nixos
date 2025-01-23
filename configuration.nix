@@ -12,7 +12,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.luks.devices."luks-a77d21c1-0d1e-41ba-915b-9d6377bf16ac".device = "/dev/disk/by-uuid/a77d21c1-0d1e-41ba-915b-9d6377bf16ac";
   # https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/linux-kernels.nix
-  # boot.kernelPackages = pkgs.linuxPackages_latest; # use the latest kernel
   boot.kernelPackages = pkgs-stable.linuxKernel.packages.linux_6_6; # issues with amd drives on latest kernel
 
   # networking

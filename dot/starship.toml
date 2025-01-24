@@ -1,0 +1,13 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+format = """
+[╭─](white)$directory$git_branch$rust$time$cmd_duration
+[╰─](white)$character
+"""
+
+[time]
+disabled = false
+
+[directory]
+truncate_to_repo = false
+[directory.substitutions]
+'//home/jak' = '~'

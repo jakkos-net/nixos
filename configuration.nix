@@ -92,6 +92,7 @@
 
       starship.enable = true;
       starship.enableNushellIntegration = true;
+      starship.settings = builtins.fromTOML (builtins.readFile ./dot/starship.toml);
     };
 
     dconf.settings = import ./dot/gnome.nix; # gnome settings

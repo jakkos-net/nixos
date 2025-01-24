@@ -90,7 +90,7 @@
       zoxide.enable = true; # replaces `cd` with smarter `z` command
       zoxide.enableNushellIntegration = true;
 
-      starship.enable = true;
+      starship.enable = true; # terminal prompt
       starship.enableNushellIntegration = true;
       starship.settings = builtins.fromTOML (builtins.readFile ./dot/starship.toml);
     };

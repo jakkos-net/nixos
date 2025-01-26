@@ -56,12 +56,13 @@
     home.file."wallpaper".source = ./dot/wallpaper; # link wallpaper file to homedir so other programs can easily access
     home.packages =
     (with pkgs-stable; [
-      gitui sd ouch wl-clipboard ripgrep poppler fzf unar ffmpegthumbnailer fd just diskonaut # term tools
+      gitui sd ouch wl-clipboard ripgrep poppler fzf unar ffmpegthumbnailer fd just diskonaut tokei # term tools
       mpv vlc # video players
       firefox google-chrome # browsers, <3 firefox but a few websites don't work ;(
       krita # paint
       deluge # torrents
       libreoffice # word/excel
+      discord
     ]) ++
     (with pkgs-unstable; [
     ]);

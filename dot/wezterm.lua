@@ -34,7 +34,7 @@ config.keys = {
   {key = 'RightArrow', mods = 'ALT', action = act.ActivateTabRelative(1)},
   {key = 'LeftArrow', mods = 'ALT|SHIFT', action = act.MoveTabRelative(-1)},
   {key = 'RightArrow', mods = 'ALT|SHIFT', action = act.MoveTabRelative(1)},
-  {key = '#', mods = 'ALT', action = act.EmitEvent 'rust-layout'},
+  {key = '#', mods = 'ALT', action = act.EmitEvent 'dev-layout'},
   {key = 'f', mods = 'ALT', action = act.TogglePaneZoomState},
   {key = 'j', mods = 'ALT', action = act.EmitEvent 'run-just-in-last-pane'},
   {key = 'c', mods = 'ALT', action = act.EmitEvent 'ctrl-c-in-last-pane'}
@@ -48,23 +48,16 @@ wezterm.on('gui-startup', function(cmd)
   window:gui_window():maximize()
 end)
 
-wezterm.on('rust-layout', function(window, pane)
+wezterm.on('dev-layout', function(window, pane)
   local child_pane = pane:split {
     direction = 'Right',
-    args = {"nu", "-e", "nix develop --command bacon"},
     size = 0.33,
   }
-  child_pane:split {
-    direction = 'Bottom',
-    size = 0.33,
-  }
-  child_pane:split {
-    direction = 'Bottom',
-    args = {"nu", "-e", "gitui"},
-    size = 0.5
-  }
+  -- window:peform_action(act.ActivatePaneByIndex(1))
   window:perform_action(act{SendString = "hx"}, pane)
   window:perform_action(act{SendKey={key="Enter"}}, pane)
+  window:perform_action(act{SpawnCommandInNewTab={args={'gitui'}}}, pane)
+  window:perform_action(act{SpawnCommandInNewTab={args={'yazi'}}}, pane)
   pane:activate()
 end)
 

@@ -2,10 +2,10 @@
   inputs = {
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11"; 
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable"; # sometimes want newer packages
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-stable";
     nix-index-database.url = "github:nix-community/nix-index-database";
-    nix-index-database.inputs.nixpkgs.follows = "nixpkgs-unstable"; # I want newest packages in comma
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs-unstable"; # want newest packages in comma
   };
   outputs = {nixpkgs-unstable, nixpkgs-stable, home-manager, nix-index-database, ...}:
   let

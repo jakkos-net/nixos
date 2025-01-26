@@ -1,11 +1,11 @@
 {
   inputs = {
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11"; # in case something unstable is broken
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11"; 
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable"; # sometimes want newer packages
     home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs-stable";
     nix-index-database.url = "github:nix-community/nix-index-database";
-    nix-index-database.inputs.nixpkgs.follows = "nixpkgs-unstable";  
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs-unstable"; # I want newest packages in comma
   };
   outputs = {nixpkgs-unstable, nixpkgs-stable, home-manager, nix-index-database, ...}:
   let
@@ -14,7 +14,7 @@
     pkgs-unstable = import nixpkgs-unstable {inherit system; config.allowUnfree = true; };
   in {
     nixosConfigurations = {
-      machine = nixpkgs-unstable.lib.nixosSystem {
+      machine = nixpkgs-stable.lib.nixosSystem {
         modules = [
           ./configuration.nix # main config
           ./hardware-configuration.nix # auto-generated depending on hardware (`nixos-generate-config`)

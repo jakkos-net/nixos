@@ -32,7 +32,7 @@
   services.xserver.enable = true;
 
   # sound
-  services.pulseaudio.enable = false;
+  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire.enable = true;
   services.pipewire.alsa.enable = true;
@@ -55,7 +55,7 @@
     home.stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
     home.file."wallpaper".source = ./dot/wallpaper; # link wallpaper file to homedir so other programs can easily access
     home.packages =
-    (with pkgs-unstable; [ # unstable packages
+    (with pkgs-stable; [
       gitui sd ouch wl-clipboard ripgrep poppler fzf unar ffmpegthumbnailer fd just diskonaut # term tools
       mpv vlc # video players
       firefox google-chrome # browsers, <3 firefox but a few websites don't work ;(
@@ -63,7 +63,7 @@
       deluge # torrents
       libreoffice # word/excel
     ]) ++
-    (with pkgs-stable; [ # stable packages, mostly used for when something breaks on unstable
+    (with pkgs-unstable; [
     ]);
 
     programs = { # programs with extra config
@@ -73,6 +73,7 @@
 
       helix.enable = true; # text editor
       helix.settings = builtins.fromTOML (builtins.readFile ./dot/helix.toml);
+      helix.package = pkgs-unstable.helix; # i want the newest release
 
       wezterm.enable = true; # best terminal emulator
       wezterm.extraConfig = builtins.readFile ./dot/wezterm.lua;

@@ -1,16 +1,13 @@
 theme = "ferra"
 
 [editor]
-auto-save = true
-auto-format = true
 mouse = false
 
 [editor.file-picker]
-hidden = true
+hidden = false
 
 [editor.cursor-shape]
 insert = "bar"
-normal = "block"
 select = "underline"
 
 [editor.indent-guides]
@@ -21,5 +18,15 @@ enable = true
 
 [editor.lsp]
 display-messages = true
+display-progress-messages = true
 
+[editor.whitespace.render]
+space = "all"
+tab = "all"
+nbsp = "all"
+nnbsp = "all"
+newline = "none"
 
+[editor.inline-diagnostics]
+cursor-line = "error"
+other-lines = "error"

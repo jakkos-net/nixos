@@ -3,7 +3,7 @@ local config = wezterm.config_builder()
 local act = wezterm.action
 
 config.hide_mouse_cursor_when_typing = false
-config.window_decorations = "RESIZE"
+config.window_decorations = "NONE" -- https://github.com/wez/wezterm/issues/6578
 config.default_prog = { 'nu' }
 config.use_fancy_tab_bar = false
 config.front_end = "WebGpu" -- workaround for rendering bug

@@ -10,7 +10,7 @@
   outputs = {nixpkgs-unstable, nixpkgs-stable, home-manager, nix-index-database, ...}:
   let
     system = "x86_64-linux";
-    pkgs-stable = import nixpkgs-unstable {inherit system; config.allowUnfree = true; };
+    pkgs-stable = import nixpkgs-stable {inherit system; config.allowUnfree = true; };
     pkgs-unstable = import nixpkgs-unstable {inherit system; config.allowUnfree = true; };
   in {
     nixosConfigurations = {

@@ -3,12 +3,12 @@ local config = wezterm.config_builder()
 local act = wezterm.action
 
 config.hide_mouse_cursor_when_typing = false
-config.window_decorations = "NONE" -- https://github.com/wez/wezterm/issues/6578
+config.window_decorations = "RESIZE"
 config.default_prog = { 'nu' }
 config.use_fancy_tab_bar = false
 config.front_end = "WebGpu" -- workaround for rendering bug
 config.hide_tab_bar_if_only_one_tab = true
-config.colors = {  
+config.colors = { -- ferra theme
   ansi = {'#1f1e20','#c05862','#b1b695','#f5d76e','#ffa07a','#f6b6c9','#bfbfcf','#f5f5f5'},
   background = '#2b292d',
   brights = {'#6f5d63','#e06b75','#9f9f7c','#fff27a','#e88c6f','#ffb9cc','#d1d1e0','#ffffff'},
@@ -53,7 +53,6 @@ wezterm.on('dev-layout', function(window, pane)
     direction = 'Right',
     size = 0.33,
   }
-  -- window:peform_action(act.ActivatePaneByIndex(1))
   window:perform_action(act{SendString = "hx"}, pane)
   window:perform_action(act{SendKey={key="Enter"}}, pane)
   window:perform_action(act{SpawnCommandInNewTab={args={'gitui'}}}, pane)

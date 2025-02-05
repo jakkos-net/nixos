@@ -69,6 +69,7 @@
 
     programs = { # programs with extra config
       git.enable = true;
+      git.lfs.enable = true;
       git.extraConfig.user.name = "jakkos-net";
       git.extraConfig.user.email = "45759112+jakkos-net@users.noreply.github.com"; # makes github commits show as correct account
 

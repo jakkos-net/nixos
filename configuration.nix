@@ -17,6 +17,7 @@
   # networking
   networking.networkmanager.enable = true;
   networking.hostName = "machine";
+  networking.nameservers = [ "9.9.9.9" ];
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
@@ -56,13 +57,13 @@
     home.file."wallpaper".source = ./dot/wallpaper; # link wallpaper file to homedir so other programs can easily access
     home.packages =
     (with pkgs-stable; [
-      gitui sd ouch wl-clipboard ripgrep poppler fzf unar ffmpegthumbnailer fd just diskonaut tokei # term tools
+      gitui sd ouch wl-clipboard ripgrep poppler fzf unar ffmpeg ffmpegthumbnailer fd just diskonaut tokei # term tools
       mpv vlc # video players
       firefox google-chrome # browsers, <3 firefox but a few websites don't work ;(
       krita # paint
       deluge # torrents
       libreoffice # word/excel
-      discord
+      discord signal-desktop # comms
     ]) ++
     (with pkgs-unstable; [
     ]);

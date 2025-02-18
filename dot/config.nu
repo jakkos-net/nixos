@@ -1,7 +1,7 @@
+$env.EDITOR = "hx"
 $env.config = {
     show_banner: false
 }
-$env.EDITOR = "hx"
 $env.PROMPT_COMMAND = {||
     let dir = if ($env.PWD | path split | zip ($nu.home-path | path split) | all { $in.0 == $in.1 }) {
             ($env.PWD | str replace $nu.home-path "~") # replace homepath with ~
@@ -37,6 +37,7 @@ alias up = sudo nixos-rebuild switch --flake "."
 alias fu = sudo nix flake update
 alias da = direnv allow
 alias fixnix = sudo nix-store --verify --check-contents --repair
+alias nixgc = sudo nix-collect-garbage; nix-collect-garbage # both system and user garbage
 alias y = yazi
 alias gitdoc = , watchexec -d 30s "git stage -A; git commit -m 'auto-commit on file change'; git pull --rebase; git push"
 alias rust_clean = , cargo-sweep sweep --recursive --time 7 ~/

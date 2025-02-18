@@ -37,7 +37,6 @@ alias up = sudo nixos-rebuild switch --flake "."
 alias fu = sudo nix flake update
 alias da = direnv allow
 alias fixnix = sudo nix-store --verify --check-contents --repair
-alias nixgc = sudo nix-collect-garbage; nix-collect-garbage # both system and user garbage
 alias y = yazi
 alias gitdoc = , watchexec -d 30s "git stage -A; git commit -m 'auto-commit on file change'; git pull --rebase; git push"
 alias rust_clean = , cargo-sweep sweep --recursive --time 7 ~/

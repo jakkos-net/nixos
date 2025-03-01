@@ -8,22 +8,25 @@
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs-unstable"; # want newest packages in comma
     zen-browser.url = "github:0xc000022070/zen-browser-flake"; # waiting for https://github.com/NixOS/nixpkgs/issues/327982
   };
-  outputs = {nixpkgs-unstable, nixpkgs-stable, home-manager, nix-index-database, zen-browser, ...}:
+  outputs = inputs :
   let
     system = "x86_64-linux";
-    pkgs-stable = import nixpkgs-stable {inherit system; config.allowUnfree = true; };
-    pkgs-unstable = (import nixpkgs-unstable {inherit system; config.allowUnfree = true; });
-    pkgs-flake = {zen-browser = zen-browser.packages."${system}".default;};
+    args = inputs // {
+      inherit system;
+      pkgs-stable = import inputs.nixpkgs-stable {inherit system; config.allowUnfree = true; };
+      pkgs-unstable = import inputs.nixpkgs-unstable {inherit system; config.allowUnfree = true; };
+      pkgs-flake = {zen-browser = inputs.zen-browser.packages."${system}".default;};
+    };
   in {
     nixosConfigurations = {
-      machine = nixpkgs-stable.lib.nixosSystem {
+      machine = args.nixpkgs-stable.lib.nixosSystem {
         modules = [
           ./configuration.nix # main config
           ./hardware-configuration.nix # auto-generated depending on hardware (`nixos-generate-config`)
-          home-manager.nixosModules.home-manager # homemanager is very useful for user-level config (e.g. dotfiles)
-          nix-index-database.nixosModules.nix-index # database of which packages contain which programs/files
+          args.home-manager.nixosModules.home-manager # homemanager is very useful for user-level config (e.g. dotfiles)
+          args.nix-index-database.nixosModules.nix-index # database of which packages contain which programs/files
         ];
-        specialArgs = { inherit pkgs-stable pkgs-unstable pkgs-flake; };
+        specialArgs = { inherit args; };
       };
     };
   };

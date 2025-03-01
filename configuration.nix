@@ -1,4 +1,4 @@
-{pkgs-stable, pkgs-unstable, pkgs-flake, ...}: {
+{args, ...}: {
   # nix
   nixpkgs.config.allowUnfree = true; # allow stuff non-open-source stuff like discord
   nix.settings.experimental-features = "nix-command flakes"; # enable flakes
@@ -12,7 +12,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.luks.devices."luks-a77d21c1-0d1e-41ba-915b-9d6377bf16ac".device = "/dev/disk/by-uuid/a77d21c1-0d1e-41ba-915b-9d6377bf16ac";
   # https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/linux-kernels.nix
-  boot.kernelPackages = pkgs-stable.linuxKernel.packages.linux_6_6; # issues with amd drives on latest kernel
+  boot.kernelPackages = args.pkgs-stable.linuxKernel.packages.linux_6_6; # issues with amd drives on latest kernel
   boot.loader.systemd-boot.memtest86.enable = true; # have memtest as an option at boot
 
   # networking
@@ -57,7 +57,7 @@
     home.stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
     home.file."wallpaper".source = ./dot/wallpaper; # link wallpaper file to homedir so other programs can easily access
     home.packages =
-    (with pkgs-stable; [
+    (with args.pkgs-stable; [
       gitui sd ouch wl-clipboard ripgrep poppler fzf unar ffmpeg ffmpegthumbnailer fd just diskonaut smartmontools tokei # term tools
       mpv vlc # video players
       google-chrome # backup browser
@@ -66,9 +66,9 @@
       libreoffice # word/excel
       discord signal-desktop # comms
     ]) ++
-    (with pkgs-unstable; [
+    (with args.pkgs-unstable; [
     ]) ++
-    (with pkgs-flake; [
+    (with args.pkgs-flake; [
       zen-browser
     ]);
 
@@ -80,7 +80,7 @@
 
       helix.enable = true; # text editor
       helix.settings = builtins.fromTOML (builtins.readFile ./dot/helix.toml);
-      helix.package = pkgs-unstable.helix; # i want the newest release
+      helix.package = args.pkgs-unstable.helix; # i want the newest release
 
       wezterm.enable = true; # best terminal emulator
       wezterm.extraConfig = builtins.readFile ./dot/wezterm.lua;

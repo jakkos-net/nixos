@@ -16,7 +16,10 @@
 
   "org/gnome/shell" = {
     favorite-apps = [];
-    enabled-extensions = ["launch-new-instance@gnome-shell-extensions.gcampax.github.com"];
+    enabled-extensions = [
+      "launch-new-instance@gnome-shell-extensions.gcampax.github.com"
+      "system-monitor@gnome-shell-extensions.gcampax.github.com"
+    ];
   };
 
   "org/gnome/shell/window-switcher" = { current-workspace-only = true; };

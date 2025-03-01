@@ -13,11 +13,12 @@
   boot.initrd.luks.devices."luks-a77d21c1-0d1e-41ba-915b-9d6377bf16ac".device = "/dev/disk/by-uuid/a77d21c1-0d1e-41ba-915b-9d6377bf16ac";
   # https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/linux-kernels.nix
   boot.kernelPackages = pkgs-stable.linuxKernel.packages.linux_6_6; # issues with amd drives on latest kernel
+  boot.loader.systemd-boot.memtest86.enable = true; # have memtest as an option at boot
 
   # networking
   networking.networkmanager.enable = true;
   networking.hostName = "machine";
-  networking.nameservers = [ "9.9.9.9" ];
+  networking.nameservers = [ "9.9.9.9" ]; # use quad9 dns
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 

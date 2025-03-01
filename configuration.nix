@@ -1,4 +1,4 @@
-{pkgs-stable, pkgs-unstable, ...}: {
+{pkgs-stable, pkgs-unstable, pkgs-flake, ...}: {
   # nix
   nixpkgs.config.allowUnfree = true; # allow stuff non-open-source stuff like discord
   nix.settings.experimental-features = "nix-command flakes"; # enable flakes
@@ -59,13 +59,16 @@
     (with pkgs-stable; [
       gitui sd ouch wl-clipboard ripgrep poppler fzf unar ffmpeg ffmpegthumbnailer fd just diskonaut tokei # term tools
       mpv vlc # video players
-      firefox google-chrome # browsers, <3 firefox but a few websites don't work ;(
+      google-chrome # backup browser
       krita # paint
       deluge # torrents
       libreoffice # word/excel
       discord signal-desktop # comms
     ]) ++
     (with pkgs-unstable; [
+    ]) ++
+    (with pkgs-flake; [
+      zen-browser
     ]);
 
     programs = { # programs with extra config
@@ -98,9 +101,9 @@
     dconf.settings = import ./dot/gnome.nix; # gnome settings
 
     xdg.desktopEntries = { # app launcher shortcuts
-      ff = {name="ff"; exec="firefox --new-window";};
-      mu = {name="mu"; exec="firefox --new-window https://music.youtube.com";};
-      fp = {name="fp"; exec="firefox --private-window";};
+      ff = {name="ff"; exec="zen --new-window";};
+      mu = {name="mu"; exec="zen --new-window https://music.youtube.com";};
+      fp = {name="fp"; exec="zen --private-window";};
     };
   };
 }

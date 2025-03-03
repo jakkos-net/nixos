@@ -58,7 +58,8 @@
     home.file."wallpaper".source = ./dot/wallpaper; # link wallpaper file to homedir so other programs can easily access
     home.packages =
     (with args.pkgs-stable; [
-      gitui sd ouch wl-clipboard ripgrep poppler fzf unar ffmpeg ffmpegthumbnailer fd just diskonaut smartmontools tokei # term tools
+      gitui sd ouch wl-clipboard ripgrep poppler fzf unar ffmpeg ffmpegthumbnailer fd just diskonaut smartmontools # term tools
+      tokei framework-tool # ..
       mpv vlc # video players
       google-chrome # backup browser
       krita # paint

@@ -7,7 +7,6 @@ config.window_decorations = "NONE" -- try changing back to RESIZE at some point,
 config.default_prog = { 'nu' }
 config.use_fancy_tab_bar = false
 config.front_end = "WebGpu" -- workaround for rendering bug
-config.hide_tab_bar_if_only_one_tab = true
 config.colors = { -- ferra theme
   ansi = {'#1f1e20','#c05862','#b1b695','#f5d76e','#ffa07a','#f6b6c9','#bfbfcf','#f5f5f5'},
   background = '#2b292d',
@@ -23,10 +22,6 @@ config.colors = { -- ferra theme
 config.font = wezterm.font 'JetBrains Mono'
 config.font_size = 14
 config.keys = {
-  {key = 'q', mods = 'ALT', action = act.ActivatePaneByIndex(0)},
-  {key = 'w', mods = 'ALT', action = act.ActivatePaneByIndex(1)},
-  {key = 'e', mods = 'ALT', action = act.ActivatePaneByIndex(2)},
-  {key = 'r', mods = 'ALT', action = act.ActivatePaneByIndex(3)},
   {key = 'Backspace', mods = 'ALT', action = act.CloseCurrentPane { confirm = false }},
   {key = 'Backspace', mods = 'ALT|SHIFT', action = act.CloseCurrentTab { confirm = false }},
   {key = 't', mods = 'ALT', action = act.SpawnTab 'DefaultDomain'},
@@ -35,10 +30,14 @@ config.keys = {
   {key = 'LeftArrow', mods = 'ALT|SHIFT', action = act.MoveTabRelative(-1)},
   {key = 'RightArrow', mods = 'ALT|SHIFT', action = act.MoveTabRelative(1)},
   {key = '#', mods = 'ALT', action = act.EmitEvent 'dev-layout'},
-  {key = 'f', mods = 'ALT', action = act.TogglePaneZoomState},
+  {key = 'm', mods = 'ALT', action = act.TogglePaneZoomState},
   {key = 'j', mods = 'ALT', action = act.EmitEvent 'run-just-in-last-pane'},
   {key = 'c', mods = 'ALT', action = act.EmitEvent 'ctrl-c-in-last-pane'}
 }
+workspaces = {{'q','default'},{'w','w'},{'e','e'},{'r','r'},{'a','a'},{'s','s'},{'d','d'},{'e','e'},{'f','f'},{'z','z'},{'x','x'}}
+for _,ws in pairs(workspaces) do
+  table.insert(config.keys, {key = ws[1], mods = 'ALT', action = act.SwitchToWorkspace{ name = ws[2] }})
+end
 for i = 1, 9 do
   table.insert(config.keys, {key = tostring(i), mods = 'ALT', action = act.ActivateTab(i - 1)})
 end
@@ -47,6 +46,11 @@ wezterm.on('gui-startup', function(cmd)
   local _, _, window = wezterm.mux.spawn_window(cmd or {})
   window:gui_window():maximize()
 end)
+
+wezterm.on('update-status', function(window, pane)
+  window:set_left_status(wezterm.format {{ Text = window:active_workspace() .. ' ' }})
+end)
+
 
 wezterm.on('dev-layout', function(window, pane)
   local child_pane = pane:split {

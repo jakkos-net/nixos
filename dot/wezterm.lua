@@ -48,7 +48,7 @@ wezterm.on('gui-startup', function(cmd)
 end)
 
 wezterm.on('update-status', function(window, pane)
-  window:set_left_status(wezterm.format {{ Text = window:active_workspace() .. ' ' }})
+  window:set_left_status(wezterm.format {{ Text = ' ' .. window:active_workspace() .. ' ' }})
 end)
 
 

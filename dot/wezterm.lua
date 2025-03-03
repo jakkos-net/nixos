@@ -50,8 +50,7 @@ end)
 wezterm.on('update-status', function(window, pane)
   window:set_left_status(wezterm.format {{ Text = ' ' .. window:active_workspace() .. ' ' }})
 end)
-
-
+  
 wezterm.on('dev-layout', function(window, pane)
   local child_pane = pane:split {
     direction = 'Right',

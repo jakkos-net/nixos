@@ -28,6 +28,11 @@ def ghpush [new_repo_name] {
 }
 def dlvids [url] { , gallery-dl --filter "extension not in ('jpg', 'jpeg', 'png', 'webp', 'zip', 'rar')" $url }
 def pkgbins [pkg] { nix-locate "/bin/" -p $pkg }
+def nixgc [] {
+    sudo nix-collect-garbage -d # run for system
+    nix-collect-garbade -d # run for user
+    nix-store --optimize
+}
 
 alias zz = cd ./..
 alias h = hx

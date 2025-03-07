@@ -2,9 +2,6 @@
   # nix
   nixpkgs.config.allowUnfree = true; # allow stuff non-open-source stuff like discord
   nix.settings.experimental-features = "nix-command flakes"; # enable flakes
-  nix.settings.auto-optimise-store = true; # dedupe store files (should turn off if I move to zfs with builtin dedupe)
-  nix.gc.options = "--delete-older-than 10d"; # clean up nix files that haven't been used in 10 days
-  nix.gc.automatic = true; # ..
   system.stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
 
   # boot
@@ -66,6 +63,7 @@
       deluge # torrents
       libreoffice # word/excel
       discord signal-desktop # comms
+      youtube-music
     ]) ++
     (with args.pkgs-unstable; [
     ]) ++

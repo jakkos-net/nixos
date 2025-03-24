@@ -88,7 +88,7 @@
       nushell.configFile.text = builtins.readFile ./dot/config.nu;
 
       yazi.enable = true; # terminal file manager
-      yazi.enableNushellIntegration = true;
+      yazi.settings = builtins.fromTOML (builtins.readFile ./dot/yazi.toml);
 
       direnv.enable = true; # auto load devshell when entering specific directories
       direnv.enableNushellIntegration = true;

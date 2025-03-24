@@ -42,6 +42,15 @@ alias up = sudo nixos-rebuild switch --flake "."
 alias fu = sudo nix flake update
 alias da = direnv allow
 alias fixnix = sudo nix-store --verify --check-contents --repair
-alias y = yazi
 alias gitdoc = , watchexec -d 30s "git stage -A; git commit -m 'auto-commit on file change'; git pull --rebase; git push"
 alias rust_clean = , cargo-sweep sweep --recursive --time 7 ~/
+
+def --env y [...args] {
+	let tmp = (mktemp -t "yazi-cwd.XXXXXX")
+	yazi ...$args --cwd-file $tmp
+	let cwd = (open $tmp)
+	if $cwd != "" and $cwd != $env.PWD {
+		cd $cwd
+	}
+	rm -fp $tmp
+}

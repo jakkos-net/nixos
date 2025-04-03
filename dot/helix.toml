@@ -28,5 +28,5 @@ nnbsp = "all"
 newline = "none"
 
 [editor.inline-diagnostics]
-cursor-line = "error"
+cursor-line = "warning"
 other-lines = "error"

@@ -2,6 +2,7 @@
   # nix
   nixpkgs.config.allowUnfree = true; # allow stuff non-open-source stuff like discord
   nix.settings.experimental-features = "nix-command flakes"; # enable flakes
+  nix.settings.download-buffer-size = 1073741824; # 10 GiB
   system.stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
 
   # boot

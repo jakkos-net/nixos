@@ -75,7 +75,6 @@
 
     programs = { # programs with extra config
       git.enable = true;
-      git.lfs.enable = true;
       git.extraConfig.user.name = "jakkos-net";
       git.extraConfig.user.email = "45759112+jakkos-net@users.noreply.github.com"; # makes github commits show as correct account
 
@@ -101,11 +100,5 @@
     };
 
     dconf.settings = import ./dot/gnome.nix; # gnome settings
-
-    xdg.desktopEntries = { # app launcher shortcuts
-      ff = {name="ff"; exec="zen --new-window";};
-      mu = {name="mu"; exec="zen --new-window https://music.youtube.com";};
-      fp = {name="fp"; exec="zen --private-window";};
-    };
   };
 }

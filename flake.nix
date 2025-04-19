@@ -45,7 +45,7 @@
       services.xserver.xkb.layout = "gb";
       console.useXkbConfig = true;
 
-      # desktop environment (gnome)
+      # desktop environment
       services.xserver.displayManager.gdm.enable = true;
       services.xserver.desktopManager.gnome.enable = true;
       services.xserver.enable = true;
@@ -64,7 +64,6 @@
       programs.nix-ld.enable = true; # run unpatched binaries
       services.fwupd.enable = true; # firmware updates
 
-      # user
       users.users."${userName}" = {
         isNormalUser = true; # sets up homedir, adds to users group, etc.
         extraGroups = [ "networkmanager" "wheel" ]; # wheel group gives access to sudo

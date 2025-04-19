@@ -1,33 +1,99 @@
 {
   inputs = {
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11"; 
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable"; # sometimes want newer packages
-    home-manager.url = "github:nix-community/home-manager/release-24.11";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs-stable";
-    nix-index-database.url = "github:nix-community/nix-index-database";
-    nix-index-database.inputs.nixpkgs.follows = "nixpkgs-unstable"; # want newest packages in comma
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     zen-browser.url = "github:0xc000022070/zen-browser-flake"; # waiting for https://github.com/NixOS/nixpkgs/issues/327982
   };
-  outputs = inputs :
+  outputs = inputs:
   let
+    hostName = "machine";
+    userName = "jak";
     system = "x86_64-linux";
-    args = inputs // {
-      inherit system;
-      pkgs-stable = import inputs.nixpkgs-stable {inherit system; config.allowUnfree = true; };
-      pkgs-unstable = import inputs.nixpkgs-unstable {inherit system; config.allowUnfree = true; };
-      pkgs-flake = {zen-browser = inputs.zen-browser.packages."${system}".default;};
+    pkgs-stable = import inputs.nixpkgs-stable {inherit system; config.allowUnfree = true; };
+    pkgs-unstable = import inputs.nixpkgs-unstable {inherit system; config.allowUnfree = true; };
+    config-module= {lib, config, modulesPath, ...}: {
+      # nix
+      nixpkgs.config.allowUnfree = true; # allow stuff non-open-source stuff like discord
+      nix.settings.experimental-features = "nix-command flakes"; # enable flakes
+      nix.settings.download-buffer-size = 1073741824; # don't intermittently pause download during rebuild
+      system.stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
+
+      # boot/kernel
+      boot.loader.systemd-boot.enable = true;
+      boot.loader.efi.canTouchEfiVariables = true;
+      boot.initrd.luks.devices."luks-a77d21c1-0d1e-41ba-915b-9d6377bf16ac".device = "/dev/disk/by-uuid/a77d21c1-0d1e-41ba-915b-9d6377bf16ac";
+      # https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/linux-kernels.nix
+      boot.kernelPackages = pkgs-stable.linuxKernel.packages.linux_6_6; # issues with amd drivers on latest kernel
+      programs.cfs-zen-tweaks.enable = true; # make desktop more responsive while cpu is being slammed
+      boot.loader.systemd-boot.memtest86.enable = true; # have memtest as an option at boot
+
+      # networking
+      networking.networkmanager.enable = true;
+      networking.hostName = hostName;
+      networking.nameservers = [ "9.9.9.9" ]; # use quad9 dns
+      hardware.bluetooth.enable = true;
+      hardware.bluetooth.powerOnBoot = true;
+
+      # locale
+      time.timeZone = "Europe/London";
+      i18n.defaultLocale = "en_GB.UTF-8";
+      services.xserver.xkb.layout = "gb";
+      console.useXkbConfig = true;
+
+      # desktop environment (gnome)
+      services.xserver.displayManager.gdm.enable = true;
+      services.xserver.desktopManager.gnome.enable = true;
+      services.xserver.enable = true;
+
+      # sound
+      hardware.pulseaudio.enable = false;
+      security.rtkit.enable = true;
+      services.pipewire.enable = true;
+      services.pipewire.alsa.enable = true;
+      services.pipewire.alsa.support32Bit = true;
+      services.pipewire.pulse.enable = true;
+
+      # other
+      services.printing.enable = true; # you'll never guess what this does
+      programs.steam.enable = true; # steam needs special FHS stuffr
+      programs.nix-ld.enable = true; # run unpatched binaries
+      services.fwupd.enable = true; # firmware updates
+
+      # user
+      users.users.jak.isNormalUser = true; # sets up homedir, adds to users group, etc.
+      users.users.jak.extraGroups = [ "networkmanager" "wheel" ]; # wheel group gives access to sudo
+      users.users.jak.packages = with pkgs-stable; [        
+        git gitui sd ouch wl-clipboard ripgrep poppler fzf unar ffmpeg ffmpegthumbnailer fd # term tools
+        just diskonaut smartmontools tokei framework-tool carapace comma zoxide nushell # ..
+        yazi nix-index wezterm pkgs-unstable.helix # ..
+        mpv vlc # video players
+        (inputs.zen-browser.packages."${system}".default) google-chrome # browsers
+        krita # paint
+        deluge # torrents
+        discord signal-desktop # comms
+        youtube-music # google has me by the balls
+      ];
+
+      system.activationScripts.symlinkDotFiles.text = ''
+        SRC_DIR=${lib.escapeShellArg "${./.}"}
+        ${pkgs-stable.nushell}/bin/nu -c "
+          cd $SRC_DIR;
+          ls .config/**/* | where type == 'file' | each {|file|
+            ln -sf $SRC_DIR/(\$file.name) /home/${userName}/(\$file.name)} | ignore" '';
+
+      # auto-generated with `nixos-generate-config`, do not manually change
+      imports = [(modulesPath + "/installer/scan/not-detected.nix")];
+      boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "thunderbolt" "usb_storage" "sd_mod" ];
+      boot.initrd.kernelModules = [ ];
+      boot.kernelModules = [ "kvm-amd" ];
+      boot.extraModulePackages = [ ];
+      fileSystems."/" = {device = "/dev/disk/by-uuid/a4a93ab0-ee13-486c-9ba8-da6905f96115"; fsType = "ext4";};
+      boot.initrd.luks.devices."luks-640f8339-e01f-4127-9cc6-c4aa20b27806".device = "/dev/disk/by-uuid/640f8339-e01f-4127-9cc6-c4aa20b27806";
+      fileSystems."/boot" = {device = "/dev/disk/by-uuid/8798-D116"; fsType = "vfat";};
+      swapDevices =[{ device = "/dev/disk/by-uuid/1e3a3b77-3746-47a9-b72c-c29edd9a9636"; }];
+      networking.useDHCP = lib.mkDefault true;
+      nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+      hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     };
-  in {
-    nixosConfigurations = {
-      machine = args.nixpkgs-stable.lib.nixosSystem {
-        modules = [
-          ./configuration.nix # main config
-          ./hardware-configuration.nix # auto-generated depending on hardware (`nixos-generate-config`)
-          args.home-manager.nixosModules.home-manager # homemanager is very useful for user-level config (e.g. dotfiles)
-          args.nix-index-database.nixosModules.nix-index # database of which packages contain which programs/files
-        ];
-        specialArgs = { inherit args; };
-      };
-    };
-  };
+  in { nixosConfigurations."${hostName}" = inputs.nixpkgs-stable.lib.nixosSystem { modules = [config-module]; }; };
 }

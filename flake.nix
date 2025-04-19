@@ -22,7 +22,6 @@
       boot.loader.systemd-boot.enable = true;
       boot.loader.efi.canTouchEfiVariables = true;
       boot.initrd.luks.devices."luks-a77d21c1-0d1e-41ba-915b-9d6377bf16ac".device = "/dev/disk/by-uuid/a77d21c1-0d1e-41ba-915b-9d6377bf16ac";
-      # https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/linux-kernels.nix
       boot.kernelPackages = pkgs-stable.linuxKernel.packages.linux_6_6; # issues with amd drivers on latest kernel
       programs.cfs-zen-tweaks.enable = true; # make desktop more responsive while cpu is being slammed
       boot.loader.systemd-boot.memtest86.enable = true; # have memtest as an option at boot
@@ -60,15 +59,16 @@
       services.fwupd.enable = true; # firmware updates
 
       # user
-      users.users.jak.isNormalUser = true; # sets up homedir, adds to users group, etc.
-      users.users.jak.extraGroups = [ "networkmanager" "wheel" ]; # wheel group gives access to sudo
-      users.users.jak.packages = with pkgs-stable; [
-        carapace comma deluge discord diskonaut fd ffmpeg ffmpegthumbnailer
-        framework-tool fzf git gitui google-chrome just krita mpv nix-index nushell
-        ouch pkgs-unstable.helix poppler ripgrep sd signal-desktop smartmontools tokei
-        unar vlc wezterm wl-clipboard yazi youtube-music zoxide
-        (inputs.zen-browser.packages."${system}".default)
-      ];
+      users.users."${userName}" = {
+        isNormalUser = true; # sets up homedir, adds to users group, etc.
+        extraGroups = [ "networkmanager" "wheel" ]; # wheel group gives access to sudo
+        packages = with pkgs-stable; [
+          carapace comma deluge discord diskonaut fd ffmpeg ffmpegthumbnailer
+          framework-tool fzf git gitui google-chrome just krita mpv nix-index
+          nushell ouch pkgs-unstable.helix poppler ripgrep sd signal-desktop
+          smartmontools tokei unar vlc wezterm wl-clipboard yazi youtube-music
+          zoxide (inputs.zen-browser.packages."${system}".default) ];
+        };
 
       system.activationScripts.symlinkDotFiles.text = ''
         SRC_DIR=${lib.escapeShellArg "${./.}"}

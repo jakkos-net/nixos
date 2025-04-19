@@ -1,5 +1,5 @@
 $env.EDITOR = "hx"
-# $env.config = { show_banner: false }
+$env.config = { show_banner: false }
 $env.PROMPT_COMMAND = {||
     let dir = if ($env.PWD | path split | zip ($nu.home-path | path split) | all { $in.0 == $in.1 }) {
             ($env.PWD | str replace $nu.home-path "~") # replace homepath with ~

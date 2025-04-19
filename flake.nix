@@ -62,16 +62,12 @@
       # user
       users.users.jak.isNormalUser = true; # sets up homedir, adds to users group, etc.
       users.users.jak.extraGroups = [ "networkmanager" "wheel" ]; # wheel group gives access to sudo
-      users.users.jak.packages = with pkgs-stable; [        
-        git gitui sd ouch wl-clipboard ripgrep poppler fzf unar ffmpeg ffmpegthumbnailer fd # term tools
-        just diskonaut smartmontools tokei framework-tool carapace comma zoxide nushell # ..
-        yazi nix-index wezterm pkgs-unstable.helix # ..
-        mpv vlc # video players
-        (inputs.zen-browser.packages."${system}".default) google-chrome # browsers
-        krita # paint
-        deluge # torrents
-        discord signal-desktop # comms
-        youtube-music # google has me by the balls
+      users.users.jak.packages = with pkgs-stable; [
+        carapace comma deluge discord diskonaut fd ffmpeg ffmpegthumbnailer
+        framework-tool fzf git gitui google-chrome just krita mpv nix-index nushell
+        ouch pkgs-unstable.helix poppler ripgrep sd signal-desktop smartmontools tokei
+        unar vlc wezterm wl-clipboard yazi youtube-music zoxide
+        (inputs.zen-browser.packages."${system}".default)
       ];
 
       system.activationScripts.symlinkDotFiles.text = ''

@@ -30,7 +30,7 @@
       # networking
       networking.networkmanager.enable = true;
       networking.hostName = hostName;
-      networking.nameservers = [ "9.9.9.9" ]; # use quad9 dns
+      environment.etc."resolv.conf".text = "nameserver 9.9.9.9" + "\n" + "options edns0"; # force quad9 dns
       hardware.bluetooth.enable = true;
       hardware.bluetooth.powerOnBoot = true;
 

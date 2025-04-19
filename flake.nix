@@ -13,7 +13,7 @@
     pkgs-unstable = import inputs.nixpkgs-unstable {inherit system; config.allowUnfree = true; };
     config-module= {lib, config, modulesPath, ...}: {
       # nix
-      nixpkgs.config.allowUnfree = true; # allow stuff non-open-source stuff like discord
+      nixpkgs.config.allowUnfree = true; # seems redundant, but needed for steam :(
       nix.settings.experimental-features = "nix-command flakes"; # enable flakes
       nix.settings.download-buffer-size = 1073741824; # don't intermittently pause download during rebuild
       system.stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

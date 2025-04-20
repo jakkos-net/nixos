@@ -36,8 +36,13 @@ config.keys = {
 }
 workspaces = {{'q','default'},{'w','w'},{'e','e'},{'r','r'},{'a','a'},{'s','s'},{'d','d'},{'e','e'},{'f','f'},{'z','z'},{'x','x'}}
 for _,ws in pairs(workspaces) do
-  table.insert(config.keys, {key = ws[1], mods = 'ALT', action = act.SwitchToWorkspace{ name = ws[2] }})
+  table.insert(config.keys, {key = ws[1], mods = 'SUPER', action = act.SwitchToWorkspace{ name = ws[2] }})
 end
+panes = {'q','w','e','r'}
+for i,k in ipairs(panes) do
+  table.insert(config.keys, {key = k, mods = 'ALT', action = act.ActivatePaneByIndex(i - 1)})
+end
+
 for i = 1, 9 do
   table.insert(config.keys, {key = tostring(i), mods = 'ALT', action = act.ActivateTab(i - 1)})
 end
@@ -49,6 +54,7 @@ end)
 
 wezterm.on('update-status', function(window, pane)
   window:set_left_status(wezterm.format {{ Text = ' ' .. window:active_workspace() .. ' ' }})
+  window:set_right_status( wezterm.strftime '%Y-%m-%d %H:%M:%S')
 end)
   
 wezterm.on('dev-layout', function(window, pane)
@@ -66,6 +72,8 @@ end)
 wezterm.on('run-just-in-last-pane', function(window, _)
   local panes = window:active_tab():panes()
   local pane = panes[#panes]
+  window:perform_action(act{SendKey = {key="c", mods="CTRL"}}, pane)
+  window:perform_action(act{SendKey={key="Enter"}}, pane)
   window:perform_action(act{SendString = "just"}, pane)
   window:perform_action(act{SendKey={key="Enter"}}, pane)
 end)

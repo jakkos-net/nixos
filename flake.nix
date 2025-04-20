@@ -25,10 +25,12 @@
       boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6; # issues with amd drivers on latest kernel
       boot.kernelModules = [ "kvm-amd" ];
       boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "thunderbolt" "usb_storage" "sd_mod" ];
+      boot.initrd.luks.devices."luks-a77d21c1-0d1e-41ba-915b-9d6377bf16ac".device = "/dev/disk/by-uuid/a77d21c1-0d1e-41ba-915b-9d6377bf16ac";
       boot.initrd.luks.devices."luks-640f8339-e01f-4127-9cc6-c4aa20b27806".device = "/dev/disk/by-uuid/640f8339-e01f-4127-9cc6-c4aa20b27806";
       fileSystems."/" = {device = "/dev/disk/by-uuid/a4a93ab0-ee13-486c-9ba8-da6905f96115"; fsType = "ext4";};
       fileSystems."/boot" = {device = "/dev/disk/by-uuid/8798-D116"; fsType = "vfat";};
       swapDevices =[{ device = "/dev/disk/by-uuid/1e3a3b77-3746-47a9-b72c-c29edd9a9636"; }];
+      hardware.enableRedistributableFirmware = true;
       hardware.cpu.amd.updateMicrocode = true;
       programs.cfs-zen-tweaks.enable = true; # make desktop more responsive while cpu is being slammed
 

@@ -2,7 +2,6 @@ theme = "ferra"
 
 [editor]
 mouse = false
-rulers = [80]
 
 [editor.file-picker]
 hidden = false

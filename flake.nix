@@ -65,6 +65,8 @@
       programs.steam.enable = true; # steam needs special FHS stuffr
       programs.nix-ld.enable = true; # run unpatched binaries
       services.fwupd.enable = true; # firmware updates
+      programs.direnv.enable = true; # auto load nix shells (when .envrc exists)
+      programs.direnv.nix-direnv.enable = true; # faster implementation for direnv
 
       users.users."${userName}" = {
         isNormalUser = true; # sets up homedir, adds to users group, etc.

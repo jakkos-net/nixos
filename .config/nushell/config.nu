@@ -1,5 +1,11 @@
 $env.EDITOR = "hx"
-$env.config = { show_banner: false }
+$env.config = {
+    show_banner: false
+    hooks: {
+        # direnv, after we `load-env` we have to fix the path as it's given as a string not a list
+        pre_prompt: [{|| direnv export json | from json | default {} | load-env; $env.PATH = $env.PATH | split row (char env_sep)}]
+    }
+}
 $env.PROMPT_COMMAND = {||
     let dir = if ($env.PWD | path split | zip ($nu.home-path | path split) | all { $in.0 == $in.1 }) {
             ($env.PWD | str replace $nu.home-path "~") # replace homepath with ~

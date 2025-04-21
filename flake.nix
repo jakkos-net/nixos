@@ -4,16 +4,14 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     zen-browser.url = "github:0xc000022070/zen-browser-flake"; # waiting for https://github.com/NixOS/nixpkgs/issues/327982
   };
-  outputs = inputs:
-  let
-    hostName = "machine";
-    userName = "jak";
+  outputs = inputs: let
+    host = "machine";
+    user = "jak";
     system = "x86_64-linux";
-    pkgs = import inputs.nixpkgs {inherit system; config.allowUnfree = true; };
-    pkgs-unstable = import inputs.nixpkgs-unstable {inherit system; config.allowUnfree = true; };
-    config-module= {lib, config, modulesPath, ...}: {
+    unstable = import inputs.nixpkgs-unstable {inherit system; config.allowUnfree = true; };
+    config-module= {pkgs, lib, config, modulesPath, ...}: {
       # nix
-      nixpkgs.pkgs = pkgs;
+      nixpkgs.pkgs = import inputs.nixpkgs {inherit system; config.allowUnfree = true; };
       nix.settings.experimental-features = "nix-command flakes"; # enable flakes
       nix.settings.download-buffer-size = 1073741824; # don't intermittently pause download during rebuild
       system.stateVersion = "23.05"; # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
@@ -25,8 +23,10 @@
       boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6; # issues with amd drivers on latest kernel
       boot.kernelModules = [ "kvm-amd" ];
       boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "thunderbolt" "usb_storage" "sd_mod" ];
-      boot.initrd.luks.devices."luks-a77d21c1-0d1e-41ba-915b-9d6377bf16ac".device = "/dev/disk/by-uuid/a77d21c1-0d1e-41ba-915b-9d6377bf16ac";
-      boot.initrd.luks.devices."luks-640f8339-e01f-4127-9cc6-c4aa20b27806".device = "/dev/disk/by-uuid/640f8339-e01f-4127-9cc6-c4aa20b27806";
+      boot.initrd.luks.devices = {
+        "luks-a77d21c1-0d1e-41ba-915b-9d6377bf16ac".device = "/dev/disk/by-uuid/a77d21c1-0d1e-41ba-915b-9d6377bf16ac";
+        "luks-640f8339-e01f-4127-9cc6-c4aa20b27806".device = "/dev/disk/by-uuid/640f8339-e01f-4127-9cc6-c4aa20b27806";
+      };
       fileSystems."/" = {device = "/dev/disk/by-uuid/a4a93ab0-ee13-486c-9ba8-da6905f96115"; fsType = "ext4";};
       fileSystems."/boot" = {device = "/dev/disk/by-uuid/8798-D116"; fsType = "vfat";};
       swapDevices =[{ device = "/dev/disk/by-uuid/1e3a3b77-3746-47a9-b72c-c29edd9a9636"; }];
@@ -36,7 +36,7 @@
 
       # networking
       networking.networkmanager.enable = true;
-      networking.hostName = hostName;
+      networking.hostName = host;
       environment.etc."resolv.conf".text = "nameserver 9.9.9.9" + "\n" + "options edns0"; # force quad9 dns
       hardware.bluetooth.enable = true;
       hardware.bluetooth.powerOnBoot = true;
@@ -68,23 +68,19 @@
       programs.direnv.enable = true; # auto load nix shells (when .envrc exists)
       programs.direnv.nix-direnv.enable = true; # faster implementation for direnv
 
-      users.users."${userName}" = {
+      users.users."${user}" = {
         isNormalUser = true; # sets up homedir, adds to users group, etc.
         extraGroups = [ "networkmanager" "wheel" ]; # wheel group gives access to sudo
         packages = with pkgs; [
           carapace comma deluge discord diskonaut fd ffmpeg ffmpegthumbnailer
           framework-tool fzf git gitui google-chrome just krita mpv nix-index
-          nushell ouch pkgs-unstable.helix poppler ripgrep sd signal-desktop
+          nushell ouch unstable.helix poppler ripgrep sd signal-desktop
           smartmontools tokei unar vlc wezterm wl-clipboard yazi youtube-music
           zoxide (inputs.zen-browser.packages."${system}".default) ];
         };
 
-      system.activationScripts.symlinkDotFiles.text = ''
-        SRC_DIR=${lib.escapeShellArg "${./.}"}
-        ${pkgs.nushell}/bin/nu -c "
-          cd $SRC_DIR;
-          ls .config/**/* | where type == 'file' | each {|file|
-            ln -sf $SRC_DIR/(\$file.name) /home/${userName}/(\$file.name)} | ignore" '';
+      system.activationScripts.linkDotFiles.text = ''${pkgs.nushell}/bin/nu -c "cd ${./.}; ls .config/**/*
+        | where type == 'file' | each {|f| ln -sf ${./.}/(\$f.name) /home/${user}/(\$f.name)} | ignore "'';
     };
-  in { nixosConfigurations."${hostName}" = inputs.nixpkgs.lib.nixosSystem { modules = [config-module]; }; };
+  in { nixosConfigurations."${host}" = inputs.nixpkgs.lib.nixosSystem { modules = [config-module]; }; };
 }

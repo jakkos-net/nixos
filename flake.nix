@@ -75,8 +75,8 @@
           framework-tool fzf git gitui google-chrome just krita mpv nix-index
           nushell ouch unstable.helix poppler ripgrep sd signal-desktop
           smartmontools tokei unar vlc wezterm wl-clipboard yazi youtube-music
-          zoxide (inputs.zen-browser.packages."${system}".default) ];
-        };
+          zoxide (inputs.zen-browser.packages."${system}".default)
+      ];};
 
       system.activationScripts.linkDotFiles.text = ''${pkgs.nushell}/bin/nu -c "cd ${./.}; ls .config/**/*
         | where type == 'file' | each {|f| ln -sf ${./.}/(\$f.name) /home/${user}/(\$f.name)} | ignore "'';

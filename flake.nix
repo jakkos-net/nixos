@@ -71,11 +71,10 @@
         isNormalUser = true; # sets up homedir, adds to users group, etc.
         extraGroups = [ "networkmanager" "wheel" ]; # wheel group gives access to sudo
         packages = with pkgs; [
-          carapace comma deluge discord diskonaut fd ffmpeg ffmpegthumbnailer
-          framework-tool fzf git gitui google-chrome just krita mpv nix-index
-          nushell ouch unstable.helix poppler ripgrep sd signal-desktop
-          smartmontools tokei unar vlc wezterm wl-clipboard yazi youtube-music
-          zoxide (inputs.zen-browser.packages."${system}".default)
+          carapace comma deluge discord diskonaut fd ffmpeg ffmpegthumbnailer framework-tool fzf git gitui
+          google-chrome just krita mpv nix-index nushell ouch unstable.helix poppler ripgrep sd
+          signal-desktop smartmontools tokei unar vlc wezterm wl-clipboard yazi youtube-music zoxide
+          (inputs.zen-browser.packages."${system}".default)
       ];};
 
       system.activationScripts.linkDotFiles.text = ''${pkgs.nushell}/bin/nu -c "cd ${./.}; ls .config/**/*

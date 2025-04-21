@@ -5,7 +5,6 @@
     zen-browser.url = "github:0xc000022070/zen-browser-flake"; # waiting for https://github.com/NixOS/nixpkgs/issues/327982
   };
   outputs = inputs: let
-    host = "machine";
     user = "jak";
     system = "x86_64-linux";
     unstable = import inputs.nixpkgs-unstable {inherit system; config.allowUnfree = true; };
@@ -36,7 +35,7 @@
 
       # networking
       networking.networkmanager.enable = true;
-      networking.hostName = host;
+      networking.hostName = "machine";
       environment.etc."resolv.conf".text = "nameserver 9.9.9.9" + "\n" + "options edns0"; # force quad9 dns
       hardware.bluetooth.enable = true;
       hardware.bluetooth.powerOnBoot = true;
@@ -82,5 +81,5 @@
       system.activationScripts.linkDotFiles.text = ''${pkgs.nushell}/bin/nu -c "cd ${./.}; ls .config/**/*
         | where type == 'file' | each {|f| ln -sf ${./.}/(\$f.name) /home/${user}/(\$f.name)} | ignore "'';
     };
-  in { nixosConfigurations."${host}" = inputs.nixpkgs.lib.nixosSystem { modules = [config-module]; }; };
+  in { nixosConfigurations.default = inputs.nixpkgs.lib.nixosSystem { modules = [config-module]; }; };
 }

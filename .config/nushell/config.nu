@@ -34,7 +34,7 @@ def dlvids [url] { , gallery-dl --filter "extension not in ('jpg', 'jpeg', 'png'
 def pkgbins [pkg] { nix-locate "/bin/" -p $pkg }
 def nixgc [] {
     sudo nix-collect-garbage -d # run for system
-    nix-collect-garbade -d # run for user
+    nix-collect-garbage -d # run for user
     nix-store --optimize
 }
 def up [] {

@@ -44,7 +44,17 @@ def up [] {
 def fwup [] {
     sudo fwupdmgr update
 }
-
+def rup [] {
+    http get https://github.com/nix-community/nix-index-database/releases/latest/download/index-x86_64-linux |
+    save -f ($env.HOME + "/.cache/nix-index/files")
+}
+def r [prog ...args] {
+    try {
+      nix run github:NixOS/nixpkgs/nixpkgs-unstable#($prog) -- ...$args
+    } catch {
+        , $prog ...$args
+    }
+}
 alias zz = cd ./..
 alias h = hx
 alias j = just

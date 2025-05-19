@@ -20,7 +20,7 @@
       boot.loader.systemd-boot.enable = true;
       boot.loader.efi.canTouchEfiVariables = true;
       boot.loader.systemd-boot.memtest86.enable = true; # have memtest as an option at boot
-      boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6; # issues with amd drivers on latest kernel
+      boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen; # meant to be more reponsive for desktop usage?
       boot.kernelModules = [ "kvm-amd" ];
       boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "thunderbolt" "usb_storage" "sd_mod" ];
       boot.initrd.luks.devices = {

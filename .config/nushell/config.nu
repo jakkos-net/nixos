@@ -30,7 +30,7 @@ def ghpush [new_repo_name] {
   , gh repo create $new_repo_name --private --source=. --remote=upstream
   git push --set-upstream upstream master
 }
-def dlvids [url] { , gallery-dl --filter "extension not in ('jpg', 'jpeg', 'png', 'webp', 'zip', 'rar', 'gif')" $url }
+def dlvids [url] { , gallery-dl --filter "extension not in ('jpg', 'jpeg', 'png', 'webp', 'zip', 'rar', 'gif', 'mp3', 'psd')" $url }
 def pkgbins [pkg] { nix-locate "/bin/" -p $pkg }
 def nixgc [] {
     sudo nix-collect-garbage -d # run for system
@@ -41,26 +41,21 @@ def up [] {
     sudo nixos-rebuild switch --flake "."
     sudo fwupdmgr get-updates --no-unreported-check
 }
-def fwup [] {
-    sudo fwupdmgr update
-}
-def rup [] {
+def cmup [] {
     http get https://github.com/nix-community/nix-index-database/releases/latest/download/index-x86_64-linux |
     save -f ($env.HOME + "/.cache/nix-index/files")
 }
-def r [prog ...args] {
-    try {
+def r --wrapped --env [prog ...args] {
       nix run github:NixOS/nixpkgs/nixpkgs-unstable#($prog) -- ...$args
-    } catch {
-        , $prog ...$args
-    }
 }
+
+alias fwup = sudo fwupdmgr update
 alias zz = cd ./..
 alias h = hx
 alias j = just
 alias g = gitui
 alias fu = sudo nix flake update
-alias da = direnv allow
+alias da = do {direnv allow; direnv reload}
 alias fixnix = sudo nix-store --verify --check-contents --repair
 alias gitdoc = , watchexec -d 30s "git stage -A; git commit -m 'auto-commit on file change'; git pull --rebase; git push"
 alias rust_clean = , cargo-sweep sweep --recursive --time 7 ~/
